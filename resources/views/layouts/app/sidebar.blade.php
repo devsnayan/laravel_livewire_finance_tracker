@@ -43,7 +43,7 @@
                         <flux:sidebar.item href="#">Categories</flux:sidebar.item>
                     </flux:sidebar.group>
 
-                    <flux:sidebar.item icon="book-open" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>
+                    <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>
                         Users
                     </flux:sidebar.item>
 
@@ -55,8 +55,16 @@
                         Permissions
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="presentation-chart-line" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
+                        Activities
+                    </flux:sidebar.item>
+
                     <flux:sidebar.item icon="cog" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
                         Settings
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="arrow-left-end-on-rectangle" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
+                        Logout
                     </flux:sidebar.item>
 
                 </flux:sidebar.group>

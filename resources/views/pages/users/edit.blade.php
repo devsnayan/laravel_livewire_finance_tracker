@@ -95,10 +95,7 @@ new #[Title('Edit User')] class extends Component {
         {{ __('Update user information.') }}
     </flux:text>
 
-    <form
-        wire:submit="update"
-        class="my-6 w-full space-y-6"
-        enctype="multipart/form-data"
+    <form wire:submit="update" class="my-6 w-full space-y-6" enctype="multipart/form-data"
     >
 
         <flux:input

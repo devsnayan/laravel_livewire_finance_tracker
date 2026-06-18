@@ -50,6 +50,11 @@ new #[Title('Profile settings')] class extends Component {
         $user->save();
 
         Flux::toast(variant: 'success', text: __(Auth::user()->name . ', your profile has been updated.'));
+
+        $this->redirect(
+            route('users.index'),
+            navigate: true
+        );
     }
 
     /* @chisel-email-verification */
