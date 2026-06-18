@@ -5,7 +5,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6" enctype="multipart/form-data">
             @csrf
             <!-- Name -->
             <flux:input
@@ -19,6 +19,17 @@
                 :placeholder="__('Full name')"
             />
 
+            <flux:input
+                name="title"
+                :label="__('Title')"
+                :value="old('title')"
+                type="text"
+                required
+                autofocus
+                autocomplete="title"
+                :placeholder="__('Title HEre')"
+            />
+
             <!-- Email Address -->
             <flux:input
                 name="email"
@@ -28,6 +39,26 @@
                 required
                 autocomplete="email"
                 placeholder="email@example.com"
+            />
+
+            <flux:input
+                name="phone"
+                :label="__('Phone Number')"
+                :value="old('phone')"
+                type="tel"
+                required
+                autocomplete="tel"
+                placeholder="01690091590"
+            />
+
+            <flux:input
+                name="avatar"
+                :label="__('Avatar')"
+                :value="old('avatar')"
+                type="file"
+                required
+                autocomplete="avatar"
+                placeholder="{{ __('Upload your avatar') }}"
             />
 
             <!-- Password -->

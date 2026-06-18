@@ -16,6 +16,9 @@ new #[Title('Profile settings')] class extends Component {
 
     public string $name = '';
     public string $email = '';
+    public string $title = '';
+    public string $phone = '';
+    public ?string $avatar = null;
 
     /**
      * Mount the component.
@@ -24,6 +27,9 @@ new #[Title('Profile settings')] class extends Component {
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->title = Auth::user()->title ?? '';
+        $this->phone = Auth::user()->phone ?? '';
+        $this->avatar = Auth::user()->avatar ?? null;
     }
 
     /**
@@ -43,7 +49,7 @@ new #[Title('Profile settings')] class extends Component {
 
         $user->save();
 
-        Flux::toast(variant: 'success', text: __('Profile updated.'));
+        Flux::toast(variant: 'success', text: __(Auth::user()->name . ', your profile has been updated.'));
     }
 
     /* @chisel-email-verification */
@@ -86,9 +92,11 @@ new #[Title('Profile settings')] class extends Component {
     <flux:heading class="sr-only">{{ __('Profile settings') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
+        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6" enctype="multipart/form-data">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
-
+            <flux:input wire:model="title" :label="__('Title')" type="text"   autocomplete="title" />
+            <flux:input wire:model="phone" :label="__('Phone Number')" type="tel"   autocomplete="phone" />
+            <flux:input wire:model="avatar" :label="__('Avatar')" type="file"  autocomplete="avatar" />
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
 
