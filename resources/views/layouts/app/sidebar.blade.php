@@ -47,11 +47,11 @@
                         Users
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="shield-check" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
+                    <flux:sidebar.item icon="shield-check" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>
                         Roles
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="key" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
+                    <flux:sidebar.item icon="key" :href="route('permissions.index')" :current="request()->routeIs('permissions.index')" wire:navigate>
                         Permissions
                     </flux:sidebar.item>
 

@@ -19,6 +19,8 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('users/{user}/delete', 'pages::users.delete')->name('users.delete');
     
     Route::livewire('/profile', 'pages::users.show')->name('profile.show');
+    Route::livewire('/permissions', 'pages::permissions.index')->name('permissions.index');
+    Route::livewire('/roles', 'pages::roles.index')->name('roles.index');
 
 });
 

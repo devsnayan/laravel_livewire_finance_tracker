@@ -111,6 +111,7 @@ new #[Title('Users')] class extends Component
             <flux:table.column>Name</flux:table.column>
             <flux:table.column>Email</flux:table.column>
             <flux:table.column>Phone</flux:table.column>
+            <flux:table.column>Role</flux:table.column>
             <flux:table.column>Created</flux:table.column>
             <flux:table.column>Actions</flux:table.column>
         </flux:table.columns>
@@ -142,6 +143,7 @@ new #[Title('Users')] class extends Component
                     </flux:table.cell>
                     <flux:table.cell>{{ $user->email }}</flux:table.cell>
                     <flux:table.cell>{{ $user->phone }}</flux:table.cell>
+                    <flux:table.cell>{{ Str::upper(str_replace('_', ' ', $user->getRoleNames()->first())) }}</flux:table.cell>
                     <flux:table.cell>{{ $user->created_at->format('M j, Y') }}</flux:table.cell>
                     
                     <flux:table.cell>

@@ -65,7 +65,6 @@ class PermissionSeeder extends Seeder
                     Permission::updateOrCreate([
                         'name' => $permission['name'],
                         'guard_name' => $permission['guard_name'],
-                        'is_active' => $permission['is_active'],
                     ]);
                 }
 
