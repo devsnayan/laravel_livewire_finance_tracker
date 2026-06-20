@@ -1,20 +1,18 @@
 <flux:dropdown position="bottom" align="start">
-    <flux:sidebar.profile
+    {{-- <flux:sidebar.profile
         :name="auth()->user()->name"
         :initials="auth()->user()->initials()"
         icon:trailing="chevrons-up-down"
         data-test="sidebar-menu-button"
-        {{-- <img src="{{ asset('https://nayan.pro/nayan.jpg') }}" alt="Finance Tracker Logo" class="size-8" /> --}}
-    />
-    {{-- <img src="{{ asset('https://nayan.pro/nayan.jpg') }}" alt="Finance Tracker Logo" class="size-8" /> --}}
+    /> --}}
+
+    <flux:sidebar.profile name="{{ Auth::user()->name }}"  avatar="{{ asset('storage/' . Auth::user()->avatar) }}"  icon:trailing="chevron-down" bg>Permissions</flux:sidebar.profile>
 
     <flux:menu>
         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
             <flux:avatar
-                :name="auth()->user()->name"
-                :initials="auth()->user()->initials()"
+                src="{{ asset('storage/' . Auth::user()->avatar) }}"
             />
-            {{-- <img src="{{ asset('https://nayan.pro/nayan.jpg') }}" alt="Finance Tracker Logo" class="size-8" /> --}}
             <div class="grid flex-1 text-start text-sm leading-tight">
                 <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
                 <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>

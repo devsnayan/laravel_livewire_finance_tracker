@@ -14,12 +14,14 @@
         
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <flux:text size="xl" class="font-bold w-full text-center">
+                    Finance Tracker
+                </flux:text>
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Modules')" class="grid">
+                <flux:sidebar.group class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
@@ -32,11 +34,11 @@
                         Transactions
                     </flux:sidebar.item>
 
-                     <flux:sidebar.group icon="phone" expandable expanded="false" heading="Contact Management" class="grid">
+                     {{-- <flux:sidebar.group icon="phone" expandable expanded="false" heading="Contact Management" class="grid">
                         <flux:sidebar.item href="#">Contacts</flux:sidebar.item>
                         <flux:sidebar.item href="#">Contact Types</flux:sidebar.item>
                         <flux:sidebar.item href="#">Contact Meta</flux:sidebar.item>
-                    </flux:sidebar.group>
+                    </flux:sidebar.group> --}}
 
                      <flux:sidebar.group icon="link" expandable expanded="false" heading="Link Management" class="grid">
                         <flux:sidebar.item href="#">Links</flux:sidebar.item>
