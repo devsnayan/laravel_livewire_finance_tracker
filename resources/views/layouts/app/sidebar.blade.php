@@ -63,6 +63,10 @@
                         Settings
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="user" :href="route('profile.show')" :current="request()->routeIs('profile.show')" wire:navigate>
+                        Profile
+                    </flux:sidebar.item>
+
                     <flux:sidebar.item icon="arrow-left-end-on-rectangle" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
                         Logout
                     </flux:sidebar.item>

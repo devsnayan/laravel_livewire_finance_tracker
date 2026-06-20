@@ -12,9 +12,7 @@ new #[Title('Users')] class extends Component
     use WithPagination;
 
     public string $search = '';
-
     public ?int $deletingUserId = null;
-
     public bool $showDeleteModal = false;
 
     public function updatingSearch(): void
@@ -25,7 +23,6 @@ new #[Title('Users')] class extends Component
     public function confirmDelete(int $id): void
     {
         $this->deletingUserId = $id;
-
         $this->showDeleteModal = true;
     }
 
@@ -70,10 +67,7 @@ new #[Title('Users')] class extends Component
                         ->orWhere('phone', 'like', "%{$this->search}%")
                         ->orWhere('title', 'like', "%{$this->search}%");
                 })
-            )
-
-            ->latest()
-            ->paginate(10);
+            )->latest()->paginate(10);
     }
 };
 
@@ -81,7 +75,7 @@ new #[Title('Users')] class extends Component
 
 <section class="w-full">
 
-    <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-1 items-center">
 
         <div class="md:col-span-1">
             <flux:heading size="xl">Users</flux:heading>
@@ -152,8 +146,9 @@ new #[Title('Users')] class extends Component
                     
                     <flux:table.cell>
                         <div class="flex gap-2">
-                            <flux:button size="sm" :href="route('users.edit', $user)" wire:navigate>Edit</flux:button>
-                            <flux:button size="sm" variant="danger" wire:click="confirmDelete({{ $user->id }})">Delete</flux:button>
+                            <flux:button size="xs" icon="eye" :href="route('users.show', $user)" wire:navigate></flux:button>
+                            <flux:button size="xs" icon="pencil" :href="route('users.edit', $user)" wire:navigate></flux:button>
+                            <flux:button size="xs" icon="trash" variant="danger" wire:click="confirmDelete({{ $user->id }})"></flux:button>
                         </div>
 
                     </flux:table.cell>
@@ -166,7 +161,6 @@ new #[Title('Users')] class extends Component
                     <flux:table.cell colspan="6" class="text-center">
                         <flux:text>No users found.</flux:text>
                     </flux:table.cell>
-
                 </flux:table.row>
             @endforelse
 
