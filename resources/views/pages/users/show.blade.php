@@ -54,7 +54,7 @@ new #[Title('Edit User')] class extends Component {
         <div class="md:col-span-3">
             <flux:card class="space-y-6 mt-6 w-full max-w-2xl mx-auto">
                 <div class="flex flex-col items-center">
-                    <flux:avatar size="xl" src="{{ asset('storage/'.$user->avatar) }}" />
+                    <flux:avatar size="xl" src="{{ $user->avatar ? asset('storage/'.$user->avatar) : '' }}" />
 
                     <flux:heading size="lg">{{ $user->name ?? '' }}</flux:heading>
                     <flux:text class="mt-0">{{ $user->title ?? '' }}</flux:text>
