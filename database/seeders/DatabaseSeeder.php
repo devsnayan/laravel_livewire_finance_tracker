@@ -21,6 +21,12 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            LedgerTypeSeeder::class,
+            LedgerSeeder::class,
+            ItemCategorySeeder::class,
+            PaymentMethodSeeder::class,
+            TransactionSeeder::class,
+            TransactionItemSeeder::class,
         ]);
 
     }
