@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             TransactionSeeder::class,
             TransactionItemSeeder::class,
+            LinkCategorySeeder::class,
+            LinkSeeder::class,
         ]);
 
     }

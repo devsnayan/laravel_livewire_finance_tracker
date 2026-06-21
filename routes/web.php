@@ -22,6 +22,20 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/permissions', 'pages::permissions.index')->name('permissions.index');
     Route::livewire('/roles', 'pages::roles.index')->name('roles.index');
 
+    // links
+    Route::livewire('links', 'pages::links.index')->name('links.index');
+    Route::livewire('links/create', 'pages::links.create')->name('links.create');
+    Route::livewire('links/{link}/show', 'pages::links.show')->name('links.show');
+    Route::livewire('links/{link}/edit', 'pages::links.edit')->name('links.edit');
+    Route::livewire('links/{link}/delete', 'pages::links.delete')->name('links.delete');
+
+    // link categories
+    Route::livewire('link_categories', 'pages::link_categories.index')->name('link_categories.index');
+    Route::livewire('link_categories/create', 'pages::link_categories.create')->name('link_categories.create');
+    Route::livewire('link_categories/{link_category}/show', 'pages::link_categories.show')->name('link_categories.show');
+    Route::livewire('link_categories/{link_category}/edit', 'pages::link_categories.edit')->name('link_categories.edit');
+    Route::livewire('link_categories/{link_category}/delete', 'pages::link_categories.delete')->name('link_categories.delete'); 
+
     // ledgers
     Route::livewire('ledgers', 'pages::ledgers.index')->name('ledgers.index');
     Route::livewire('ledgers/create', 'pages::ledgers.create')->name('ledgers.create');
@@ -35,6 +49,14 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('ledger_types/{ledger_type}/show', 'pages::ledger_types.show')->name('ledger_types.show');
     Route::livewire('ledger_types/{ledger_type}/edit', 'pages::ledger_types.edit')->name('ledger_types.edit');
     Route::livewire('ledger_types/{ledger_type}/delete', 'pages::ledger_types.delete')->name('ledger_types.delete');
+
+    // transactions
+    Route::livewire('transactions', 'pages::transactions.index')->name('transactions.index');
+
+    // payment methods
+    Route::livewire('payment_methods', 'pages::payment_methods.index')->name('payment_methods.index');
+
+    // 
 
 });
 

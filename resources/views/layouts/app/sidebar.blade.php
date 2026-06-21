@@ -34,20 +34,15 @@
                         Transactions
                     </flux:sidebar.item>
 
-                     {{-- <flux:sidebar.group icon="phone" expandable expanded="false" heading="Contact Management" class="grid">
-                        <flux:sidebar.item href="#">Contacts</flux:sidebar.item>
-                        <flux:sidebar.item href="#">Contact Types</flux:sidebar.item>
-                        <flux:sidebar.item href="#">Contact Meta</flux:sidebar.item>
-                    </flux:sidebar.group> --}}
-
-                    {{-- <flux:sidebar.group icon="link" expandable expanded="false" heading="Ledger Management" class="grid">
-                        <flux:sidebar.item href="#">Ladgers</flux:sidebar.item>
-                        <flux:sidebar.item href="#">Types</flux:sidebar.item>
-                    </flux:sidebar.group> --}}
 
                     <flux:sidebar.group icon="book-open" expandable expanded="false" heading="Ledger Management" class="grid" >
                         <flux:sidebar.item icon="book-open" :href="route('ledgers.index')" :current="request()->routeIs('ledgers.index')" wire:navigate>Ledgers</flux:sidebar.item>
                         <flux:sidebar.item icon="puzzle-piece" :href="route('ledger_types.index')" :current="request()->routeIs('ledger_types.index')" wire:navigate>Types</flux:sidebar.item>
+                    </flux:sidebar.group>
+
+                    <flux:sidebar.group icon="link" expandable expanded="false" heading="Link Management" class="grid" >
+                        <flux:sidebar.item icon="book-open" :href="route('links.index')" :current="request()->routeIs('links.index')" wire:navigate>Links</flux:sidebar.item>
+                        <flux:sidebar.item icon="puzzle-piece" :href="route('link_categories.index')" :current="request()->routeIs('link_categories.index')" wire:navigate>Categories</flux:sidebar.item>
                     </flux:sidebar.group>
 
                     <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>
