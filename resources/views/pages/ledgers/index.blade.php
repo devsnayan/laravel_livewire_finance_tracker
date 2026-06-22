@@ -115,7 +115,7 @@ new #[Title('Ledgers')] class extends Component
         @foreach($this->ledgers as $ledger)
             <flux:card>
                 <div>
-                    <flux:text size="lg" color="sky" class="font-bold">{{ Str::title($ledger->name ?? '') }}</flux:text>
+                    <flux:text size="lg" color="sky" class="font-bold" >{{ Str::title($ledger->name ?? '') }}</flux:text>
                     <flux:text class="m-0">{{ $ledger->ledgerType->name ?? '' }}</flux:text>
                 </div>
                 <div class="items-center justify-center">

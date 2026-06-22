@@ -61,73 +61,58 @@ new #[Title('Ledger Details')] class extends Component
 
 <section class="w-full">
 
-    <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center justify-between mb-2">
 
         <div>
-            <flux:heading size="xl">{{ $ledger->name }}</flux:heading>
+            <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
             <flux:text>{{ $ledger->title }}</flux:text>
 
-        </div>
+            <div class="flex mb-2">
+                <flux:badge size="sm" class="m-1 ms-0" color="{{ $ledger->is_star ? 'yellow' : 'white' }}" >{{ $ledger->is_star ? 'Favourite' : 'Not Favourite' }}</flux:badge>
+                <flux:badge size="sm" class="m-1" color="{{ $ledger->is_active ? 'green' : 'white' }}" >{{ $ledger->is_star ? 'Active' : 'Inactive' }}</flux:badge>
+                <flux:badge size="sm" class="m-1" color="zinc" >{{ $ledger->ledgerType->name }}</flux:badge>
+            </div>
+ 
+            <div class="grid grid-cols-1 lg:grid-cols-4 mb-2 mb-2">
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Last Opened:</span>  {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Created at:</span>  {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Updated at:</span>  {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+            </div>
 
-        <div class="flex">
-            <flux:button
-                size="xs"
-                icon="heart"
-                variant="{{ $ledger->is_star ? 'primary' : 'ghost' }}"
-                class="{{ $ledger->is_star ? 'text-yellow-500' : '' }} mx-1"
-            ></flux:button>
+            {{-- <div class="grid grid-cols-1 lg:grid-cols-4 mb-2">
+                <flux:text> <span class="font-bold">Last Opened:</span>  {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text> <span class="font-bold">Created at:</span>  {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text> <span class="font-bold">Updated at:</span>  {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+            </div> --}}
 
-            <flux:button
-                size="xs"
-                icon="check-circle"
-                variant="{{ $ledger->is_active ? 'primary' : 'ghost' }}"
-                class="{{ $ledger->is_active ? 'text-green-500' : '' }} mx-1"
-            ></flux:button>
-
-            <flux:badge size="sm" class="mx-1">{{ $ledger->ledgerType->name }}</flux:badge>
-                    
-        </div>
-
-    </div>
-
-    <div class="my-4">
-        <flux:text size="xs" class="text-justify">
+            <flux:text size="xs" class="text-justify mt-1">
             {{ $ledger->notes }}
         </flux:text>
+
+        </div>
+
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
         <flux:card>
-            <flux:text>Total Credit</flux:text>
-
-            <flux:heading size="xl">
-                {{ number_format($ledger->totalCredit(), 2) }}
-            </flux:heading>
+            <flux:text color="green">Total Credit</flux:text>
+            <flux:text color="green" class="font-bold text-2xl">{{ number_format($ledger->totalCredit(), 2) }}/-</flux:text>
         </flux:card>
 
         <flux:card>
-            <flux:text>Total Debit</flux:text>
-
-            <flux:heading size="xl">
-                {{ number_format($ledger->totalDebit(), 2) }}
-            </flux:heading>
+            <flux:text color="red">Total Debit</flux:text>
+            <flux:text color="red" class="font-bold text-2xl">{{ number_format($ledger->totalDebit(), 2) }}/-</flux:text>
         </flux:card>
 
         <flux:card>
-            <flux:text>Balance</flux:text>
-
-            <flux:heading size="xl">
-                {{ number_format($ledger->balance(), 2) }}
-            </flux:heading>
+            <flux:text color="blue">Amount</flux:text>
+            <flux:text color="blue" class="font-bold text-2xl">{{ number_format($ledger->balance(), 2) }}/-</flux:text>
         </flux:card>
 
         <flux:card>
-            <flux:text>Transactions</flux:text>
-
-            <flux:heading size="xl">
-                {{ $ledger->transactions->count() }}
-            </flux:heading>
+            <flux:text color="cyan">Transactions</flux:text>
+            <flux:text color="cyan" class="font-bold text-2xl"> {{ $ledger->transactions->count() }}</flux:text>
         </flux:card>
 
     </div>
