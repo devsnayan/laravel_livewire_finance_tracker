@@ -26,13 +26,9 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="book-open" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
-                        Ledger
-                    </flux:sidebar.item>
-
-                    <flux:sidebar.item icon="credit-card" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
-                        Transactions
-                    </flux:sidebar.item>
+                        {{-- <flux:sidebar.item icon="credit-card" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
+                            Transactions
+                        </flux:sidebar.item> --}}
 
                     <flux:sidebar.item icon="book-open" :href="route('ledgers.index')" :current="request()->routeIs('ledgers*')" wire:navigate>
                         Ledgers
