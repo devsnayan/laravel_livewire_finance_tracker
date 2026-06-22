@@ -34,11 +34,9 @@
                         Transactions
                     </flux:sidebar.item>
 
-
-                    <flux:sidebar.group icon="book-open" expandable expanded="false" heading="Ledger Management" class="grid" >
-                        <flux:sidebar.item icon="book-open" :href="route('ledgers.index')" :current="request()->routeIs('ledgers.index')" wire:navigate>Ledgers</flux:sidebar.item>
-                        <flux:sidebar.item icon="puzzle-piece" :href="route('ledger_types.index')" :current="request()->routeIs('ledger_types.index')" wire:navigate>Types</flux:sidebar.item>
-                    </flux:sidebar.group>
+                    <flux:sidebar.item icon="book-open" :href="route('ledgers.index')" :current="request()->routeIs('ledgers*')" wire:navigate>
+                        Ledgers
+                    </flux:sidebar.item>
 
                     <flux:sidebar.group icon="link" expandable expanded="false" heading="Link Management" class="grid" >
                         <flux:sidebar.item icon="book-open" :href="route('links.index')" :current="request()->routeIs('links.index')" wire:navigate>Links</flux:sidebar.item>

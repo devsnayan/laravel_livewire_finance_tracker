@@ -63,4 +63,6 @@ class Transaction extends Model
     {
         return $this->total_credit() - $this->total_debit();
     }
+
+    
 }

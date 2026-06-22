@@ -32,7 +32,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'EXP-001',
             ],
             [
-                'ledger_id' => 2,
+                'ledger_id' => 1,
                 'date' => '2026-06-03',
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Family expense',
@@ -40,7 +40,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'FAM-001',
             ],
             [
-                'ledger_id' => 3,
+                'ledger_id' => 1,
                 'date' => '2026-06-04',
                 'trx_type' => TransactionType::Credit,
                 'notes' => 'Client payment received',
@@ -48,7 +48,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'BUS-001',
             ],
             [
-                'ledger_id' => 4,
+                'ledger_id' => 1,
                 'date' => '2026-06-05',
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Loan given to friend',
@@ -56,7 +56,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'LOAN-001',
             ],
             [
-                'ledger_id' => 5,
+                'ledger_id' => 1,
                 'date' => '2026-06-06',
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Project hosting cost',
@@ -64,7 +64,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'PRJ-001',
             ],
             [
-                'ledger_id' => 6,
+                'ledger_id' => 1,
                 'date' => '2026-06-07',
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Tour transport expense',
@@ -80,7 +80,7 @@ class TransactionSeeder extends Seeder
                 'ref_no' => 'TUI-001',
             ],
             [
-                'ledger_id' => 3,
+                'ledger_id' => 1,
                 'date' => '2026-06-09',
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Office internet bill',

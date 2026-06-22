@@ -1,18 +1,20 @@
 <?php
 
-use App\Models\User;
+use App\Models\Ledger;
 use Flux\Flux;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 
-new #[Title('Users')] class extends Component
+
+new #[Title('Ledgers')] class extends Component
 {
     use WithPagination;
 
     public string $search = '';
-    public ?int $deletingUserId = null;
+    public ?int $deletingLedgerId = null;
     public bool $showDeleteModal = false;
 
     public function updatingSearch(): void
@@ -22,52 +24,68 @@ new #[Title('Users')] class extends Component
 
     public function confirmDelete(int $id): void
     {
-        $this->deletingUserId = $id;
+        $this->deletingLedgerId = $id;
         $this->showDeleteModal = true;
+    }
+
+    public function updateIsActive(int $id): void
+    {
+        $ledger = Ledger::findOrFail($id);
+
+        $ledger->update([
+            'is_active' => ! $ledger->is_active,
+        ]);
+
+         Flux::toast(
+            variant: 'success',
+            text: $ledger->fresh()->is_active
+                ? __('Actived Successfully.')
+                : __('Disabled Successfully.')
+        );
+    }
+
+    public function updateStar(int $id): void
+    {
+        $ledger = Ledger::findOrFail($id);
+
+        $ledger->update([
+            'is_star' => ! $ledger->is_star,
+        ]);
+
+        Flux::toast(
+            variant: 'success',
+            text: $ledger->fresh()->is_star
+                ? __('Added to favorites.')
+                : __('Removed from favorites.')
+        );
     }
 
     public function delete(): void
     {
-        $user = User::findOrFail($this->deletingUserId);
+        $ledger = Ledger::findOrFail($this->deletingLedgerId);
 
-        if ($user->id === auth()->id()) {
-
-            Flux::toast(
-                variant: 'danger',
-                text: __('You cannot delete your own account.')
-            );
-
-            return;
-        }
-
-        if ($user->avatar) {
-            \Storage::disk('public')->delete($user->avatar);
-        }
-
-        $user->delete();
+        $ledger->delete();
 
         $this->showDeleteModal = false;
 
         Flux::toast(
             variant: 'success',
-            text: __('User deleted successfully.')
+            text: __('Ledger deleted successfully.')
+        );
+
+         $this->redirect(
+            route('ledgers.index'),
+            navigate: true
         );
     }
 
     #[Computed]
-    public function users()
+    public function ledgers()
     {
-        return User::query()
-
-            ->when(
-                $this->search,
-                fn ($query) => $query->where(function ($q) {
-                    $q->where('name', 'like', "%{$this->search}%")
-                        ->orWhere('email', 'like', "%{$this->search}%")
-                        ->orWhere('phone', 'like', "%{$this->search}%")
-                        ->orWhere('title', 'like', "%{$this->search}%");
-                })
-            )->latest()->paginate(10);
+        return Ledger::query()->where('user_id', Auth::user()->id)
+            ->when($this->search, fn ($query) => $query->where('name', 'like', "%{$this->search}%"))
+            ->latest()
+            ->paginate(25);
     }
 };
 
@@ -77,9 +95,9 @@ new #[Title('Users')] class extends Component
 
     <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-1 items-center">
 
-        <div class="md:col-span-1">
-            <flux:heading size="xl">Users</flux:heading>
-            <flux:text class="mt-2">Manage system users.</flux:text>
+        <div class="md:col-span-2">
+            <flux:heading size="xl">Ledgers</flux:heading>
+            <flux:text class="mt-2">Manage system ledgers.</flux:text>
         </div>
 
         <div class="md:col-span-2">
@@ -87,102 +105,61 @@ new #[Title('Users')] class extends Component
                 size="sm"
                 wire:model.live.debounce.500ms="search"
                 icon="magnifying-glass"
-                placeholder="Search users..."
+                placeholder="Search ledgers..."
             />
-        </div>
-
-        <div class="flex md:justify-end">
-            <flux:button
-                size="sm"
-                variant="primary"
-                :href="route('users.create')"
-                wire:navigate
-            >
-                Create User
-            </flux:button>
         </div>
 
     </div>
 
-    <flux:table>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @foreach($this->ledgers as $ledger)
+            <flux:card>
+                <div>
+                    <flux:text size="lg" color="sky" class="font-bold">{{ Str::title($ledger->name ?? '') }}</flux:text>
+                    <flux:text class="m-0">{{ $ledger->ledgerType->name ?? '' }}</flux:text>
+                </div>
+                <div class="items-center justify-center">
+                    <flux:text size="xs" class="m-0"> <span class="font-bold">Opened:</span> {{ $ledger->opened_at ? $ledger->opened_at->format('M j, Y') : 'N/A' }}</flux:text>
+                    <flux:text size="xs" class="m-0"> <span class="font-bold">Closed:</span> {{ $ledger->closed_at ? $ledger->closed_at->format('M j, Y') : 'N/A' }}</flux:text>
+                </div>
 
-        <flux:table.columns>
-            <flux:table.column>Avatar</flux:table.column>
-            <flux:table.column>Name</flux:table.column>
-            <flux:table.column>Email</flux:table.column>
-            <flux:table.column>Phone</flux:table.column>
-            <flux:table.column>Role</flux:table.column>
-            <flux:table.column>Created</flux:table.column>
-            <flux:table.column>Actions</flux:table.column>
-        </flux:table.columns>
-
-        <flux:table.rows>
-
-            @forelse($this->users as $user)
-
-                <flux:table.row>
-
-                    <flux:table.cell>
-                        @if($user->avatar)
-                            <img
-                                src="{{ asset('storage/'.$user->avatar) }}"
-                                class="size-10 rounded-full object-cover"
-                                alt="{{ $user->name }}"
-                            >
-                        @else
-                            <img
-                                src="{{ asset('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEy7pwqmpRqSf5t5v1dCOJsCsYlXeBGjIg3i3Z2HIzvg&s=10') }}"
-                                class="size-10 rounded-full object-cover"
-                                alt="{{ $user->name }}"
-                            >
-                        @endif
-                    </flux:table.cell>
-                    <flux:table.cell>
-                        <p class="m-0"><strong>{{ $user->name }}</strong></p>
-                        <small>{{ $user->title ?? '' }}</small>
-                    </flux:table.cell>
-                    <flux:table.cell>{{ $user->email }}</flux:table.cell>
-                    <flux:table.cell>{{ $user->phone }}</flux:table.cell>
-                    <flux:table.cell>{{ Str::upper(str_replace('_', ' ', $user->getRoleNames()->first())) }}</flux:table.cell>
-                    <flux:table.cell>{{ $user->created_at->format('M j, Y') }}</flux:table.cell>
+                <div class="flex gap-2 mt-4 items-center justify-center">
+                    <flux:button size="xs" variant="primary" color="emerald" icon="eye" :href="route('ledgers.show', $ledger)" wire:navigate></flux:button>
+                    <flux:button size="xs" variant="primary" color="yellow" icon="pencil" :href="route('ledgers.edit', $ledger)" wire:navigate></flux:button>
+                    <flux:button size="xs" variant="primary" color="rose" icon="trash"  wire:click="confirmDelete({{ $ledger->id }})"></flux:button>
+                    <flux:button
+                        size="xs"
+                        icon="heart"
+                        wire:click="updateStar({{ $ledger->id }})"
+                        variant="primary"
+                        color="{{ $ledger->is_star ? 'orange' : '' }}"
+                        class=""
+                    ></flux:button>
                     
-                    <flux:table.cell>
-                        <div class="flex gap-2">
-                            <flux:button size="xs" icon="eye" :href="route('users.show', $user)" wire:navigate></flux:button>
-                            <flux:button size="xs" icon="pencil" :href="route('users.edit', $user)" wire:navigate></flux:button>
-                            <flux:button size="xs" icon="trash" variant="danger" wire:click="confirmDelete({{ $user->id }})"></flux:button>
-                        </div>
-
-                    </flux:table.cell>
-
-                </flux:table.row>
-
-            @empty
-                <flux:table.row>
-
-                    <flux:table.cell colspan="6" class="text-center">
-                        <flux:text>No users found.</flux:text>
-                    </flux:table.cell>
-                </flux:table.row>
-            @endforelse
-
-        </flux:table.rows>
-
-    </flux:table>
+                    <flux:field variant="inline" >
+                        <flux:switch
+                                variant="primary" color="rose"
+                                :checked="$ledger->is_active"
+                                wire:click="updateIsActive({{ $ledger->id }})"
+                            />
+                    </flux:field>
+                </div>
+            </flux:card>
+        @endforeach
+    </div>
 
     <div class="mt-6">
 
-        {{ $this->users->links() }}
+        {{ $this->ledgers->links() }}
 
     </div>
 
     <flux:modal wire:model="showDeleteModal">
 
         <div class="space-y-4">
-            <flux:heading>Delete User</flux:heading>
+            <flux:heading>Delete Ledger</flux:heading>
             <flux:text>
-                Are you sure you want to delete this user?
-                This action cannot be undone.
+                Are you sure you want to delete this ledger?
             </flux:text>
 
             <div class="flex justify-end gap-2">
