@@ -74,9 +74,9 @@ new #[Title('Ledger Details')] class extends Component
             </div>
  
             <div class="grid grid-cols-1 lg:grid-cols-4 my-2">
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Last Opened:</span>  {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Created at:</span>  {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Updated at:</span>  {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Last Opened: </span>{{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Created at: </span>{{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Updated at: </span>{{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
             </div>
 
             <flux:text size="xs" class="text-justify mt-1">
