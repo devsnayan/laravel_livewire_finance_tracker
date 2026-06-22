@@ -74,9 +74,9 @@ new #[Title('Ledger Details')] class extends Component
             </div>
  
             <div class="grid grid-cols-1 lg:grid-cols-4 my-2">
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Last Opened: </span>{{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Created at: </span>{{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" ><span class="font-bold">Updated at: </span>{{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
             </div>
 
             <flux:text size="xs" class="text-justify mt-1">
@@ -121,8 +121,6 @@ new #[Title('Ledger Details')] class extends Component
             <flux:table>
                 <flux:table.columns>
                     <flux:table.column>Ref Num</flux:table.column>
-                    <flux:table.column>Date</flux:table.column>
-                    <flux:table.column>Items</flux:table.column>
                     <flux:table.column>Amount</flux:table.column>
                     <flux:table.column>Action</flux:table.column>
                 </flux:table.columns>
@@ -132,11 +130,14 @@ new #[Title('Ledger Details')] class extends Component
                     <flux:table.row>
                         <flux:table.cell>
                             <flux:text class="font-bold">{{$trx->ref_no}}</flux:text>
-                            <flux:badge color="green" size="sm">{{$trx->paymentMethod->name ?? ''}}</flux:badge>
+                            <flux:text size="sm">{{ $trx->created_at ? $trx->created_at->format('M j, Y') : 'N/A' }}</flux:text>
+                            {{-- <flux:badge>{{$trx->items->count()}}</flux:badge> --}}
                         </flux:table.cell>
-                        <flux:table.cell>{{ $trx->created_at ? $trx->created_at->format('M j, Y') : 'N/A' }}</flux:table.cell>
-                        <flux:table.cell class="py-0">{{$trx->items->count()}}</flux:table.cell>
-                        <flux:table.cell variant="strong">{{$trx->items->sum('amount')}} /-</flux:table.cell>
+                        <flux:table.cell variant="strong">
+                            <flux:badge>{{$trx->items->sum('amount')}} /-</flux:badge>
+                            <flux:badge size="sm">{{$trx->trx_type}}</flux:badge>
+                            <flux:badge size="sm">{{$trx->items->count()}}</flux:badge>
+                        </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
                                 <flux:button size="xs" icon="eye" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
