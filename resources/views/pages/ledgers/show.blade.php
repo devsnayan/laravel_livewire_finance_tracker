@@ -173,7 +173,6 @@ new #[Title('Ledger Details')] class extends Component
 
         <div class="space-y-6">
             <flux:heading size="lg">Transaction Details: {{$selectedTransaction->ref_no ?? ''}}</flux:heading>
-            <flux:subheading>Make changes to your personal details.</flux:subheading>
         </div>
 
         <div class="grid grid-cols-3 lg:grid-cols-3 gap-2 my-4">
