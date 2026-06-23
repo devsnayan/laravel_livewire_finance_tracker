@@ -6,7 +6,7 @@
         data-test="sidebar-menu-button"
     /> --}}
 
-    <flux:sidebar.profile name="{{ Auth::user()->name }}"  avatar="{{ Auth::user()->avatar ? asset('storage/'.Auth::user()->avatar) : '' }}"  icon:trailing="chevron-down" bg>Permissions</flux:sidebar.profile>
+    <flux:sidebar.profile  avatar="{{ Auth::user()->avatar ? asset('storage/'.Auth::user()->avatar) : '' }}"  icon:trailing="chevron-down" bg></flux:sidebar.profile>
 
     <flux:menu>
         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
