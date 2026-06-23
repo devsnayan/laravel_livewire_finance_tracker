@@ -135,8 +135,8 @@ new #[Title('Ledger Details')] class extends Component
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <flux:badge>{{$trx->items->sum('amount')}} /-</flux:badge>
-                            <flux:badge size="sm">{{$trx->trx_type}}</flux:badge>
-                            <flux:badge size="sm">{{$trx->items->count()}}</flux:badge>
+                            {{-- <flux:badge size="sm">{{$trx->trx_type}}</flux:badge> --}}
+                            {{-- <flux:badge size="sm">{{$trx->items->count()}}</flux:badge> --}}
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
@@ -166,23 +166,63 @@ new #[Title('Ledger Details')] class extends Component
 
 
     <flux:modal name="edit-profile" flyout variant="floating" class="md:w-lg" wire:model="showItemsTransactionModal">
+
+        @php
+            $selectedTransaction = $ledger->transactions->firstWhere('id', $showTransactionId);
+        @endphp
+
         <div class="space-y-6">
-            <flux:heading size="lg">Update profile</flux:heading>
-
+            <flux:heading size="lg">Transaction Details: {{$selectedTransaction->ref_no ?? ''}}</flux:heading>
             <flux:subheading>Make changes to your personal details.</flux:subheading>
-
-            <flux:input label="Name" placeholder="Your name" />
-
-            <flux:input label="Date of birth" type="date" />
         </div>
 
-        <x-slot name="footer" class="flex items-center justify-end gap-2">
-            <flux:modal.close>
-                <flux:button variant="filled">Cancel</flux:button>
-            </flux:modal.close>
+        <div class="grid grid-cols-3 lg:grid-cols-3 gap-2 my-4">
+            <flux:card>
+                <flux:text color="">Total Amount</flux:text>
+                <flux:text color="" class="font-bold text-lg">{{ number_format($selectedTransaction?->items->sum('amount') ?? 0, 2) }}/-</flux:text>
+            </flux:card>
 
-            <flux:button type="submit" variant="primary">Save changes</flux:button>
-        </x-slot>
+            <flux:card>
+                <flux:text color="">Total Items</flux:text>
+                <flux:text color="" class="font-bold text-lg">{{ $selectedTransaction?->items->count() ?? 0 }}</flux:text>
+            </flux:card>
+
+            <flux:card>
+                <flux:text color="">Type</flux:text>
+                <flux:text color="" class="font-bold text-lg">{{ $selectedTransaction->trx_type ?? '' }}</flux:text>
+            </flux:card>
+        </div>
+
+        <div>
+            <flux:table>
+                <flux:table.columns>
+                    <flux:table.column>Category</flux:table.column>
+                    <flux:table.column>Name</flux:table.column>
+                    <flux:table.column>Amount</flux:table.column>
+                </flux:table.columns>
+
+                <flux:table.rows>
+                    @if($selectedTransaction && $selectedTransaction->items->isNotEmpty())
+                        @foreach($selectedTransaction->items as $item)
+                            <flux:table.row>
+                                <flux:table.cell>{{ $item->category?->name ?? 'N/A' }}</flux:table.cell>
+                                <flux:table.cell>{{ $item->name ?? $item->description ?? 'Item' }}</flux:table.cell>
+                                <flux:table.cell>{{ number_format($item->amount, 2) }}/-</flux:table.cell>
+                            </flux:table.row>
+                        @endforeach
+                    @else
+                        <flux:table.row>
+                            <flux:table.cell colspan="3">No transaction items found.</flux:table.cell>
+                        </flux:table.row>
+                    @endif
+                </flux:table.rows>
+            </flux:table>
+        </div>
+
+        <div class="mt-4">
+            <flux:button wire:click="$set('showItemsTransactionModal', false)"> Cancel</flux:button>
+        </div>
+
     </flux:modal>
 
 
