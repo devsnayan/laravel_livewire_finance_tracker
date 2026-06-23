@@ -16,8 +16,8 @@ class Transaction extends Model
         'trx_type',
         'notes',
         'payment_method_id',
-        'ref_no',
-        'is_active',
+        'trx_no',
+        'amount',
     ];
 
     protected function casts(): array

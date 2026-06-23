@@ -16,12 +16,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('ledger_id')->constrained()->cascadeOnDelete();
-            $table->date('date');
             $table->string('trx_type')->default(TransactionType::Debit->value);
-            $table->text('notes')->nullable();
             $table->foreignId('payment_method_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('ref_no')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->date('date');
+            $table->text('notes')->nullable();
+            $table->string('trx_no')->nullable();
+            $table->decimal('amount', 15, 2);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -18,9 +18,7 @@ class Ledger extends Model
         'name',
         'title',
         'notes',
-        'status',
         'opened_at',
-        'closed_at',
         'is_star',
         'is_active',
     ];
@@ -28,7 +26,6 @@ class Ledger extends Model
     protected function casts(): array
     {
         return [
-            'status' => LedgerStatus::class,
             'opened_at' => 'datetime',
             'closed_at' => 'datetime',
             'is_star' => 'boolean',
