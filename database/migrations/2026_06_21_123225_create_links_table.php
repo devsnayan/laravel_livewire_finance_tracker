@@ -13,23 +13,14 @@ return new class extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('category_id')
-                ->constrained('link_categories')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
+             $table->foreignId('category_id')->constrained('link_categories')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->text('notes')->nullable();
-
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
-
             $table->boolean('is_star')->default(false);
             $table->boolean('is_active')->default(true);
-
             $table->integer('sort_order')->default(0);
             $table->softDeletes();
             $table->timestamps();

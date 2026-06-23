@@ -9,6 +9,8 @@ class LedgerType extends Model
 {
     protected $fillable = [
         'name',
+        'color',
+        'icon',
         'notes',
         'is_active',
         'user_id',

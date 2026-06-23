@@ -140,8 +140,8 @@ new #[Title('Ledger Details')] class extends Component
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
-                                <flux:button size="xs" icon="eye" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
-                                <flux:button size="xs" icon="trash" wire:click="confirmDeleteTransaction({{ $trx->id }})"/>
+                                <flux:button size="sm" icon="eye" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
+                                <flux:button size="sm" icon="trash" wire:click="confirmDeleteTransaction({{ $trx->id }})"/>
                             </div>
                         </flux:table.cell>
                     </flux:table.row>

@@ -14,25 +14,17 @@ return new class extends Migration
     {
         Schema::create('ledgers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('ledger_type_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ledger_type_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('title')->nullable();
             $table->text('notes')->nullable();
-
             $table->string('status')->default(LedgerStatus::Active);
-
             $table->timestamp('opened_at')->nullable();
             $table->timestamp('closed_at')->nullable();
-
             $table->boolean('is_star')->default(false);
             $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

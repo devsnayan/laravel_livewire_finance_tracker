@@ -14,32 +14,15 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('ledger_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ledger_id')->constrained()->cascadeOnDelete();
             $table->date('date');
-
-            $table->string('trx_type')
-                ->default(TransactionType::Debit->value);
-
+            $table->string('trx_type')->default(TransactionType::Debit->value);
             $table->text('notes')->nullable();
-
-            $table->foreignId('payment_method_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-
-            $table->string('ref_no')
-                ->nullable();
-
-            $table->boolean('is_active')
-                ->default(true);
-
+            $table->foreignId('payment_method_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('ref_no')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
