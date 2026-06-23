@@ -21,7 +21,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Credit,
                 'notes' => 'Salary received',
                 'payment_method_id' => 1,
-                'ref_no' => 'SAL-001',
+                'trx_no' => 'SAL-001',
+                'amount' => 30000
             ],
             [
                 'ledger_id' => 1,
@@ -29,7 +30,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Monthly groceries',
                 'payment_method_id' => 1,
-                'ref_no' => 'EXP-001',
+                'trx_no' => 'EXP-001',
+                'amount' => 534
             ],
             [
                 'ledger_id' => 1,
@@ -37,7 +39,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Family expense',
                 'payment_method_id' => 2,
-                'ref_no' => 'FAM-001',
+                'trx_no' => 'FAM-001',
+                'amount' => 6000
             ],
             [
                 'ledger_id' => 1,
@@ -45,7 +48,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Credit,
                 'notes' => 'Client payment received',
                 'payment_method_id' => 3,
-                'ref_no' => 'BUS-001',
+                'trx_no' => 'BUS-001',
+                'amount' => 534
             ],
             [
                 'ledger_id' => 1,
@@ -53,7 +57,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Loan given to friend',
                 'payment_method_id' => 1,
-                'ref_no' => 'LOAN-001',
+                'trx_no' => 'LOAN-001',
+                'amount' => 4432
             ],
             [
                 'ledger_id' => 1,
@@ -61,7 +66,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Project hosting cost',
                 'payment_method_id' => 2,
-                'ref_no' => 'PRJ-001',
+                'trx_no' => 'PRJ-001',
+                'amount' => 534
             ],
             [
                 'ledger_id' => 1,
@@ -69,7 +75,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Tour transport expense',
                 'payment_method_id' => 1,
-                'ref_no' => 'TOUR-001',
+                'trx_no' => 'TOUR-001',
+                'amount' => 6786
             ],
             [
                 'ledger_id' => 1,
@@ -77,7 +84,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Credit,
                 'notes' => 'Tuition payment received',
                 'payment_method_id' => 2,
-                'ref_no' => 'TUI-001',
+                'trx_no' => 'TUI-001',
+                'amount' => 534
             ],
             [
                 'ledger_id' => 1,
@@ -85,7 +93,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Office internet bill',
                 'payment_method_id' => 3,
-                'ref_no' => 'BUS-002',
+                'trx_no' => 'BUS-002',
+                'amount' => 534
             ],
             [
                 'ledger_id' => 1,
@@ -93,7 +102,8 @@ class TransactionSeeder extends Seeder
                 'trx_type' => TransactionType::Debit,
                 'notes' => 'Medical expense',
                 'payment_method_id' => 1,
-                'ref_no' => 'MED-001',
+                'trx_no' => 'MED-001',
+                'amount' => 456
             ],
         ];
 
@@ -101,7 +111,7 @@ class TransactionSeeder extends Seeder
             Transaction::updateOrCreate(
                 [
                     'user_id' => 1,
-                    'ref_no' => $transaction['ref_no'],
+                    'trx_no' => $transaction['trx_no'],
                 ],
                 [
                     'user_id' => 1,
@@ -110,7 +120,6 @@ class TransactionSeeder extends Seeder
                     'trx_type' => $transaction['trx_type'],
                     'notes' => $transaction['notes'],
                     'payment_method_id' => $transaction['payment_method_id'],
-                    'is_active' => true,
                 ]
             );
         }

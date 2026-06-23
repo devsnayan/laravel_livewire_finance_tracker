@@ -116,11 +116,10 @@ new #[Title('Ledgers')] class extends Component
             <flux:card>
                 <div>
                     <flux:text size="lg" color="sky" class="font-bold" >{{ Str::title($ledger->name ?? '') }}</flux:text>
-                    <flux:text class="m-0">{{ $ledger->ledgerType->name ?? '' }}</flux:text>
+                    <flux:text class="m-0">{{ $ledger->ledgerType->name_bn ?? '' }}</flux:text>
                 </div>
                 <div class="items-center justify-center">
                     <flux:text size="xs" class="m-0"> <span class="font-bold">Opened:</span> {{ $ledger->opened_at ? $ledger->opened_at->format('M j, Y') : 'N/A' }}</flux:text>
-                    <flux:text size="xs" class="m-0"> <span class="font-bold">Closed:</span> {{ $ledger->closed_at ? $ledger->closed_at->format('M j, Y') : 'N/A' }}</flux:text>
                 </div>
 
                 <div class="flex gap-2 mt-4 items-center justify-center">

@@ -76,9 +76,8 @@ class LedgerSeeder extends Seeder
                 [
                     'ledger_type_id' => $ledger['ledger_type_id'],
                     'title' => $ledger['title'],
-                    'notes' => null,
+                    'notes' => ' simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
                     'opened_at' => now(),
-                    'closed_at' => null,
                     'is_star' => false,
                     'is_active' => true,
                 ]

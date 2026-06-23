@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->text('notes')->nullable();
             $table->string('trx_no')->nullable();
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 15, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

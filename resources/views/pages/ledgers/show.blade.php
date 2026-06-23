@@ -120,7 +120,7 @@ new #[Title('Ledger Details')] class extends Component
         <div class="overflow-x-auto mt-4">
             <flux:table>
                 <flux:table.columns>
-                    <flux:table.column>Ref Num</flux:table.column>
+                    <flux:table.column>Transaction</flux:table.column>
                     <flux:table.column>Amount</flux:table.column>
                     <flux:table.column>Action</flux:table.column>
                 </flux:table.columns>
@@ -129,7 +129,7 @@ new #[Title('Ledger Details')] class extends Component
                    @foreach($ledger->transactions as $trx)
                     <flux:table.row>
                         <flux:table.cell>
-                            <flux:text class="font-bold">{{$trx->ref_no}}</flux:text>
+                            <flux:badge size="sm" class="font-bold">{{$trx->trx_no}}</flux:badge>
                             <flux:text size="sm">{{ $trx->created_at ? $trx->created_at->format('M j, Y') : 'N/A' }}</flux:text>
                             {{-- <flux:badge>{{$trx->items->count()}}</flux:badge> --}}
                         </flux:table.cell>
@@ -140,8 +140,8 @@ new #[Title('Ledger Details')] class extends Component
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
-                                <flux:button size="sm" icon="eye" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
-                                <flux:button size="sm" icon="trash" wire:click="confirmDeleteTransaction({{ $trx->id }})"/>
+                                <flux:button size="sm" icon="eye" color="green" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
+                                {{-- <flux:button size="sm" icon="trash" wire:click="confirmDeleteTransaction({{ $trx->id }})"/> --}}
                             </div>
                         </flux:table.cell>
                     </flux:table.row>
@@ -218,8 +218,10 @@ new #[Title('Ledger Details')] class extends Component
             </flux:table>
         </div>
 
-        <div class="mt-4">
-            <flux:button wire:click="$set('showItemsTransactionModal', false)"> Cancel</flux:button>
+        <div class="flex justify-center mt-4">
+            <flux:button size="sm" icon="x-circle" class="me-2" wire:click="$set('showItemsTransactionModal', false)" variant="primary"></flux:button>
+            <flux:button size="sm" icon="trash" class="me-2" variant="danger" wire:click="deleteTransaction"></flux:button>
+            <flux:button size="sm" icon="pencil-square" type="submit" variant="primary" color="yellow"></flux:button>
         </div>
 
     </flux:modal>

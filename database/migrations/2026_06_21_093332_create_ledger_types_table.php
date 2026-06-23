@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name')->nullable();
+            $table->string('name_bn')->nullable();
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->text('notes')->nullable();
