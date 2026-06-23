@@ -63,7 +63,9 @@ new #[Title('Ledger Details')] class extends Component
 
     <div class="flex items-center justify-between mb-2">
 
+        
         <div>
+            <flux:button icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.index')" wire:navigate>Back</flux:button>
             <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
             <flux:text>{{ $ledger->title }}</flux:text>
 
@@ -74,9 +76,9 @@ new #[Title('Ledger Details')] class extends Component
             </div>
  
             <div class="grid grid-cols-1 lg:grid-cols-4 my-2">
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
-                <flux:badge size="sm" class="m-1 ms-0" color="zinc" > <span class="font-bold me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:badge>
+                <flux:text size="sm" class="m-1 ms-0 text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="m-1  text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="m-1 ms-0 text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
             </div>
 
             <flux:text size="xs" class="text-justify mt-1">
@@ -140,8 +142,8 @@ new #[Title('Ledger Details')] class extends Component
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
-                                <flux:button size="sm" icon="eye" color="green" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
-                                {{-- <flux:button size="sm" icon="trash" wire:click="confirmDeleteTransaction({{ $trx->id }})"/> --}}
+                                <flux:button size="sm" icon="eye" variant="primary" color="green" wire:click="ShowItemsTransactionModal({{ $trx->id }})"/>
+                                <flux:button size="sm" icon="trash" color="red" variant="primary" wire:click="confirmDeleteTransaction({{ $trx->id }})"/>
                             </div>
                         </flux:table.cell>
                     </flux:table.row>
@@ -171,11 +173,17 @@ new #[Title('Ledger Details')] class extends Component
             $selectedTransaction = $ledger->transactions->firstWhere('id', $showTransactionId);
         @endphp
 
-        <div class="space-y-6">
-            <flux:heading size="lg" class="mb-2 font-bold">Transaction Details: {{$selectedTransaction->ref_no ?? ''}}</flux:heading>
+        <div class="">
+            <flux:heading size="lg" class="mb-1 font-bold">{{$selectedTransaction->trx_no ?? ''}}</flux:heading>
+            <flux:text size="sm" class="font-bold"><span class="font-bold">Date: </span> {{ $trx->selectedTransaction ? $trx->date->format('M j, Y') : 'N/A' }}</flux:text>
+            <div class="flex">
+                <flux:text size="xs" class="font-bold me-2">{{ $selectedTransaction->trx_type ?? '' }}</flux:text>
+                <flux:text size="xs" color="green" class="font-bold">{{ $selectedTransaction->paymentMethod->name ?? '' }}</flux:text>
+            </div>
+            <flux:text size="xs" class="">{{ $selectedTransaction->notes ?? '' }}</flux:text>
         </div>
 
-        <div class="grid grid-cols-3 lg:grid-cols-3 gap-2 my-4">
+        <div class="grid grid-cols-2 lg:grid-cols-2 gap-2 my-4">
             <flux:card>
                 <flux:text color="">Total Amount</flux:text>
                 <flux:text color="" class="font-bold text-lg">{{ number_format($selectedTransaction?->items->sum('amount') ?? 0, 2) }}/-</flux:text>
@@ -186,10 +194,6 @@ new #[Title('Ledger Details')] class extends Component
                 <flux:text color="" class="font-bold text-lg">{{ $selectedTransaction?->items->count() ?? 0 }}</flux:text>
             </flux:card>
 
-            <flux:card>
-                <flux:text color="">Type</flux:text>
-                <flux:text color="" class="font-bold text-lg">{{ $selectedTransaction->trx_type ?? '' }}</flux:text>
-            </flux:card>
         </div>
 
         <div>
@@ -218,10 +222,10 @@ new #[Title('Ledger Details')] class extends Component
             </flux:table>
         </div>
 
-        <div class="flex justify-center mt-4">
-            <flux:button size="sm" icon="x-circle" class="me-2" wire:click="$set('showItemsTransactionModal', false)" variant="primary"></flux:button>
-            <flux:button size="sm" icon="trash" class="me-2" variant="danger" wire:click="deleteTransaction"></flux:button>
-            <flux:button size="sm" icon="pencil-square" type="submit" variant="primary" color="yellow"></flux:button>
+        <div class="flex mt-4">
+            <flux:button size="sm" icon="arrow-left" class="me-2" wire:click="$set('showItemsTransactionModal', false)" variant="primary">Back</flux:button>
+            {{-- <flux:button size="sm" icon="trash" class="me-2" variant="danger" wire:click="confirmDeleteTransaction({{ $trx->id }})"></flux:button> --}}
+            <flux:button size="sm" icon="pencil-square" type="submit" variant="primary" color="yellow">Edit</flux:button>
         </div>
 
     </flux:modal>
