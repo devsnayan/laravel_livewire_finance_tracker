@@ -65,7 +65,11 @@ new #[Title('Ledger Details')] class extends Component
 
         
         <div>
-            <flux:button icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.index')" wire:navigate>Back</flux:button>
+            <div class="flex">
+                <flux:button class="me-2" icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.index')" wire:navigate>Back</flux:button>
+                <flux:button class="me-2" icon="pencil-square" size="sm" color="yellow" variant="primary" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
+                <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('ledgers.index')" wire:navigate>Transaction</flux:button>
+            </div>
             <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
             <flux:text>{{ $ledger->title }}</flux:text>
 
@@ -76,9 +80,9 @@ new #[Title('Ledger Details')] class extends Component
             </div>
  
             <div class="grid grid-cols-1 lg:grid-cols-4 my-2">
-                <flux:text size="sm" class="m-1 ms-0 text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
-                <flux:text size="sm" class="m-1  text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
-                <flux:text size="sm" class="m-1 ms-0 text-blue-300" color="" > <span class="font-bold text-blue-400 me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
             </div>
 
             <flux:text size="xs" class="text-justify mt-1">
