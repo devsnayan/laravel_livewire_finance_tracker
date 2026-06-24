@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('ledger_id')->constrained()->cascadeOnDelete();
             $table->string('trx_type')->default(TransactionType::Debit->value);
             $table->foreignId('payment_method_id')->nullable()->constrained()->nullOnDelete();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->text('notes')->nullable();
             $table->string('trx_no')->nullable();
             $table->decimal('amount', 15, 2)->nullable();

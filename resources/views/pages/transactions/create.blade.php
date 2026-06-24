@@ -34,7 +34,7 @@ new #[Title('Create Transaction')] class extends Component
 
         $this->items = [
             [
-                'category_id' => '',
+                // 'category_id' => '',
                 'name' => '',
                 'notes' => '',
                 'amount' => '',
@@ -45,7 +45,7 @@ new #[Title('Create Transaction')] class extends Component
     public function addItem(): void
     {
         $this->items[] = [
-            'category_id' => '',
+            // 'category_id' => '',
             'name' => '',
             'notes' => '',
             'amount' => '',
@@ -69,7 +69,7 @@ new #[Title('Create Transaction')] class extends Component
             'notes' => ['nullable', 'string'],
 
             'items' => ['required', 'array', 'min:1'],
-            'items.*.category_id' => ['nullable', 'exists:item_categories,id'],
+            // 'items.*.category_id' => ['nullable', 'exists:item_categories,id'],
             'items.*.name' => ['required', 'string', 'max:255'],
             'items.*.notes' => ['nullable', 'string'],
             'items.*.amount' => ['required', 'numeric', 'min:0.01'],
