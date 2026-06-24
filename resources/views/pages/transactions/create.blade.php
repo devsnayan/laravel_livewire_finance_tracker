@@ -239,7 +239,7 @@ new #[Title('Create Transaction')] class extends Component
                             </div>
 
                             @if(count($items) > 1)
-                            <div class="col-span-1 flex justify-center mt-6 ">
+                            <div class="col-span-1 flex justify-center lg:mt-6 md:mt-6 sm:mt-2  ">
                                 <flux:button size="sm" type="button" variant="primary" color="red" icon="x-mark" wire:click="removeItem({{ $index }})"></flux:button>
                             </div>
                             @endif
