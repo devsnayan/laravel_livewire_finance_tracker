@@ -62,7 +62,7 @@ new #[Title('Ledger Details')] class extends Component
 <section class="w-full">
     <flux:button.group>
         <flux:button variant="filled"  icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
-        <flux:button variant="filled"  icon="pencil-square" size="sm" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
+        <flux:button variant="filled"  icon="pencil-square" size="sm" :href="route('ledgers.edit', $ledger->id)" wire:navigate>Edit</flux:button>
         <flux:button variant="filled"  icon="plus" size="sm" :href="route('transactions.create', ['ledger_id' => $ledger->id])" wire:navigate>Transaction</flux:button>
     </flux:button.group>
 
