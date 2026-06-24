@@ -166,9 +166,9 @@ new #[Title('Create Transaction')] class extends Component
 
 <section class="w-full">
 
-    <div class="flex">
-        <flux:button class="me-2" icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.show', $ledger)" wire:navigate>Back</flux:button>        {{-- <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button> --}}
-    </div>
+    <flux:button.group>
+        <flux:button class="me-2" icon="arrow-left" size="sm" :href="route('ledgers.show', $ledger)" wire:navigate>Back</flux:button>        {{-- <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button> --}}
+    </flux:button.group>
 
     <flux:text class="font-bold text-2xl mt-2" color="sky">Create Transaction</flux:text>
     <flux:text class="">Ledger: {{ $ledger->name }}</flux:text>
@@ -269,7 +269,7 @@ new #[Title('Create Transaction')] class extends Component
             </div>
 
              <div class="flex justify-center mt-5">
-                <flux:button variant="primary" color="green" class="" type="submit">Save</flux:button>
+                <flux:button variant="primary" color="green" class="w-full" class="" type="submit">Save</flux:button>
             </div>
 
         </flux:card>

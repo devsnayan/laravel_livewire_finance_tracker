@@ -65,11 +65,11 @@ new #[Title('Ledger Details')] class extends Component
 
         
         <div>
-            <div class="flex">
-                <flux:button class="me-2" icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.index')" wire:navigate>Back</flux:button>
-                <flux:button class="me-2" icon="pencil-square" size="sm" color="yellow" variant="primary" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
-                <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button>
-            </div>
+            <flux:button.group>
+                <flux:button icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
+                <flux:button icon="pencil-square" size="sm" color="yellow" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
+                <flux:button icon="plus" size="sm" color="green" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button>
+            </flux:button.group>
             <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
             <flux:text>{{ $ledger->title }}</flux:text>
 
