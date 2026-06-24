@@ -91,7 +91,7 @@ new #[Title('Create Transaction')] class extends Component
         foreach ($this->items as $item) {
 
             $transaction->items()->create([
-                'category_id' => $item['category_id'],
+                // 'category_id' => $item['category_id'],
                 'name' => $item['name'],
                 'notes' => $item['notes'],
                 'amount' => $item['amount'],
