@@ -12,7 +12,7 @@ new #[Title('Create Transaction')] class extends Component
 {
     public Ledger $ledger;
 
-    public string $trx_type = 'debit';
+    public string $trx_type = '';
     public string $date = '';
 
     public ?int $payment_method_id = null;
@@ -176,13 +176,8 @@ new #[Title('Create Transaction')] class extends Component
         <flux:button class="me-2" icon="arrow-left" size="sm" variant="primary" :href="route('ledgers.show', $ledger)" wire:navigate>Back</flux:button>        {{-- <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button> --}}
     </div>
 
-    <flux:heading size="xl">
-        Create Transaction
-    </flux:heading>
-
-    <flux:text class="mt-2">
-        Ledger: {{ $ledger->name }}
-    </flux:text>
+    <flux:text class="font-bold text-2xl mt-2" color="sky">Create Transaction</flux:text>
+    <flux:text class="">Ledger: {{ $ledger->name }}</flux:text>
 
     <form wire:submit="save" class="my-6 w-full space-y-6">
 
@@ -191,6 +186,7 @@ new #[Title('Create Transaction')] class extends Component
 
                 <div class="col-span-6 md:col-span-2 lg:col-span-2">
                     <flux:select wire:model="trx_type" label="Transaction Type">
+                        <option value="">Select Type</option>
                         <option value="credit">Credit</option>
                         <option value="debit">Debit</option>
                     </flux:select>
@@ -219,12 +215,12 @@ new #[Title('Create Transaction')] class extends Component
 
                 @foreach($items as $index => $item)
 
-                    <div class="border-b-1 p-4">
+                    <div class="border-b-1 mb-2 py-4">
 
                         <div class="grid grid-cols-1 md:grid-cols-10 gap-2">
 
                             <div class="col-span-3">
-                                <flux:select wire:model="items.{{ $index }}.category_id" label="Category">
+                                <flux:select wire:model="items.{{ $index }}.category_id" placeholder="Category">
                                     <option value="">Select Category</option>
 
                                     @foreach($this->categories as $category)
@@ -234,16 +230,16 @@ new #[Title('Create Transaction')] class extends Component
                                 </flux:select>
                             </div>
 
-                            <div class="col-span-3">
-                                <flux:input wire:model="items.{{ $index }}.name" label="Name"/>
+                            <div class="col-span-4">
+                                <flux:input wire:model="items.{{ $index }}.name" placeholder="Name"/>
                             </div>
 
-                            <div class="col-span-3">
-                                <flux:input wire:model.live="items.{{ $index }}.amount" label="Amount" type="number" step="0.01"/>
+                            <div class="col-span-2">
+                                <flux:input wire:model.live="items.{{ $index }}.amount" placeholder="Amount" type="number" step="0.01"/>
                             </div>
 
                             @if(count($items) > 1)
-                            <div class="col-span-1 mt-6">
+                            <div class="col-span-1">
                                 <flux:button type="button" variant="danger" icon="trash" wire:click="removeItem({{ $index }})"></flux:button>
                             </div>
                             @endif
@@ -254,10 +250,10 @@ new #[Title('Create Transaction')] class extends Component
                 @endforeach
 
                 <div class="grid grid-cols-1 md:grid-cols-10 gap-2">
-                    <div class="col-span-6 flex justify-center">
+                    <div class="col-span-7 flex justify-center">
                         <flux:text size="lg" class="font-bold" color="green">Total Amount</flux:text>
                     </div>
-                    <div class="col-span-3">
+                    <div class="col-span-2 flex justify-center">
                         <flux:text size="lg" class="font-bold" color="green">{{ number_format($this->total, 2) }} /-</flux:text>
                     </div>
                     <div col-span-1>
