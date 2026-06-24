@@ -60,34 +60,31 @@ new #[Title('Ledger Details')] class extends Component
 ?>
 
 <section class="w-full">
+    <flux:button.group>
+        <flux:button variant="filled"  icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
+        <flux:button variant="filled"  icon="pencil-square" size="sm" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
+        <flux:button variant="filled"  icon="plus" size="sm" :href="route('transactions.create', ['ledger_id' => $ledger->id])" wire:navigate>Transaction</flux:button>
+    </flux:button.group>
 
-    <div class="flex items-center justify-between mb-2">
-
-        
+    <div class="mt-4 flex items-center justify-between mb-2">
         <div>
-            <flux:button.group>
-                <flux:button variant="primary"  icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
-                <flux:button variant="primary"  icon="pencil-square" size="sm" color="yellow" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
-                <flux:button variant="primary"  icon="plus" size="sm" color="green" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button>
-            </flux:button.group>
-            <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
-            <flux:text>{{ $ledger->title }}</flux:text>
+           
+            <flux:text class="font-bold text-2xl text-white" color="sky">{{ $ledger->name }}</flux:text>
+            <flux:text class="text-white">{{ $ledger->title }}</flux:text>
 
             <div class="flex mb-2">
-                <flux:badge size="sm" class="m-1 ms-0" color="{{ $ledger->is_star ? 'yellow' : 'white' }}" >{{ $ledger->is_star ? 'Favourite' : 'Not Favourite' }}</flux:badge>
-                <flux:badge size="sm" class="m-1" color="{{ $ledger->is_active ? 'green' : 'white' }}" >{{ $ledger->is_star ? 'Active' : 'Inactive' }}</flux:badge>
-                <flux:badge size="sm" class="m-1" color="zinc" >{{ $ledger->ledgerType->name }}</flux:badge>
+                <flux:badge size="sm" class="m-1 text-white ms-0" color="{{ $ledger->is_star ? 'yellow' : 'white' }}" >{{ $ledger->is_star ? 'Favourite' : 'Not Favourite' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 text-white" color="{{ $ledger->is_active ? 'green' : 'white' }}" >{{ $ledger->is_star ? 'Active' : 'Inactive' }}</flux:badge>
+                <flux:badge size="sm" class="m-1 text-white" color="zinc" >{{ $ledger->ledgerType->name }}</flux:badge>
             </div>
  
             <div class="grid grid-cols-1 lg:grid-cols-4 my-2">
-                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
-                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
-                <flux:text size="sm" class="me-2 text-blue-300"><span class="font-bold text-blue-400 me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 dark:text-blue-100"><span class="font-bold dark:text-blue-80 me-1">Last Opened: </span> {{ $ledger->opened_at ? $ledger->opened_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 dark:text-blue-100"><span class="font-bold dark:text-blue-80 me-1">Created at: </span> {{ $ledger->created_at ? $ledger->created_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
+                <flux:text size="sm" class="me-2 dark:text-blue-100"><span class="font-bold dark:text-blue-80 me-1">Updated at: </span> {{ $ledger->updated_at ? $ledger->updated_at->format('d M Y h:m:a') : 'N/A' }}</flux:text>
             </div>
 
-            <flux:text size="xs" class="text-justify mt-1">
-            {{ $ledger->notes }}
-        </flux:text>
+            <flux:text size="xs" class="text-justify dark:text-blue-100 mt-1">{{ $ledger->notes }}</flux:text>
 
         </div>
 
@@ -106,8 +103,8 @@ new #[Title('Ledger Details')] class extends Component
         </flux:card>
 
         <flux:card>
-            <flux:text color="blue">Amount</flux:text>
-            <flux:text color="blue" class="font-bold text-2xl">{{ number_format($ledger->balance(), 2) }}/-</flux:text>
+            <flux:text>Amount</flux:text>
+            <flux:text class="font-bold text-2xl">{{ number_format($ledger->balance(), 2) }}/-</flux:text>
         </flux:card>
 
         <flux:card>

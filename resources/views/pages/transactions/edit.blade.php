@@ -177,7 +177,7 @@ new #[Title('Edit Transaction')] class extends Component
 <section class="w-full">
 
     <flux:button.group>
-        <flux:button class="me-2" icon="arrow-left" size="sm" :href="route('ledgers.show', $ledger)" wire:navigate>Back</flux:button>        {{-- <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button> --}}
+        <flux:button class="me-2" variant="filled" icon="arrow-left" size="sm" :href="route('ledgers.show', $ledger)" wire:navigate>Back</flux:button>        {{-- <flux:button class="me-2" icon="plus" size="sm" color="green" variant="primary" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button> --}}
     </flux:button.group>
 
     <flux:text class="font-bold text-2xl mt-2" color="sky">Create Transaction</flux:text>
@@ -248,10 +248,6 @@ new #[Title('Edit Transaction')] class extends Component
                             </div>
                             @endif
 
-                            
-
-
-
                         </div>
 
                     </div>
@@ -259,13 +255,13 @@ new #[Title('Edit Transaction')] class extends Component
 
                 <div class="grid grid-cols-10 md:grid-cols-10 lg:grid-cols-10 gap-4 py-3">
                     <div class="col-span-4 md:col-span-7 lg:col-span-7 flex justify-center">
-                        <flux:text size="lg" class="font-bold" color="green">Total Amount</flux:text>
+                        <flux:text size="lg" class="font-bold">Total Amount</flux:text>
                     </div>
                     <div class="col-span-4 md:col-span-2 lg:col-span-2 flex justify-center">
-                        <flux:text size="lg" class="font-bold" color="green">{{ number_format($this->total, 2) }} /-</flux:text>
+                        <flux:text size="lg" class="font-bold">{{ number_format($this->total, 2) }} /-</flux:text>
                     </div>
                     <div class="col-span-2 md:col-span-1 lg:col-span-1 flex justify-center">
-                        <flux:button type="button" icon="plus" size="sm" variant="primary" color="green" wire:click="addItem"></flux:button>
+                        <flux:button type="button" icon="plus" size="sm" variant="primary" wire:click="addItem"></flux:button>
                     </div>
                     
                     

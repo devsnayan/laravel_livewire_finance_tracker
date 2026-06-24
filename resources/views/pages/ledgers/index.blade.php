@@ -93,11 +93,16 @@ new #[Title('Ledgers')] class extends Component
 
 <section class="w-full">
 
-    <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-1 items-center">
+    <flux:button.group>
+        <flux:button variant="filled"  icon="arrow-left" size="sm"  :href="route('dashboard')" wire:navigate>Back</flux:button>
+        <flux:button variant="filled"  icon="plus" size="sm" :href="route('ledgers.create')" wire:navigate>Create Ledger</flux:button>
+    </flux:button.group>
 
+    <div class="my-6 grid grid-cols-1 md:grid-cols-4 gap-1 items-center">
+        
         <div class="md:col-span-2">
             <flux:heading size="xl">Ledgers</flux:heading>
-            <flux:text class="mt-2">Manage system ledgers.</flux:text>
+            {{-- <flux:text class="mt-2">Manage system ledgers.</flux:text> --}}
         </div>
 
         <div class="md:col-span-2">

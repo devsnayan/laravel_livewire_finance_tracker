@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
     // transactions
     Route::livewire('transactions', 'pages::transactions.index')->name('transactions.index');
     Route::livewire('transactions/edit/{transaction}','pages::transactions.edit')->name('transactions.edit');
-    Route::livewire('transactions/create/{ledger}', 'pages::transactions.create')->name('transactions.create');
+    Route::livewire('transactions/create', 'pages::transactions.create')->name('transactions.create');
 
     // payment methods
     Route::livewire('payment_methods', 'pages::payment_methods.index')->name('payment_methods.index');
