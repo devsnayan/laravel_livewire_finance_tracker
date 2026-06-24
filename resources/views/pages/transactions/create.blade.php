@@ -215,12 +215,12 @@ new #[Title('Create Transaction')] class extends Component
 
                 @foreach($items as $index => $item)
 
-                    <div class="border mb-2 py-3">
+                    <div class="border mb-3 py-3">
 
                         <div class="grid grid-cols-1 md:grid-cols-10 gap-2">
 
-                            <div class="col-span-1 md:col-span-3 lg:col-span-3">
-                                <flux:select size="sm" wire:model="items.{{ $index }}.category_id" placeholder="Category">
+                            <div class="col-span-1 md:col-span-3 lg:col-span-3 ps-3">
+                                <flux:select size="sm" wire:model="items.{{ $index }}.category_id" label="Category">
                                     <option value="">Select Category</option>
 
                                     @foreach($this->categories as $category)
@@ -230,16 +230,16 @@ new #[Title('Create Transaction')] class extends Component
                                 </flux:select>
                             </div>
 
-                            <div class="col-span-1 md:col-span-4 lg:col-span-4">
-                                <flux:input size="sm" wire:model="items.{{ $index }}.name" placeholder="Name"/>
+                            <div class="col-span-1 md:col-span-4 lg:col-span-4 ps-3">
+                                <flux:input size="sm" wire:model="items.{{ $index }}.name" label="Name"/>
                             </div>
 
-                            <div class="col-span-1 md:col-span-2 lg:col-span-2">
-                                <flux:input size="sm" wire:model.live="items.{{ $index }}.amount" placeholder="Amount" type="number" step="0.01"/>
+                            <div class="col-span-1 md:col-span-2 lg:col-span-2 ps-3">
+                                <flux:input size="sm" wire:model.live="items.{{ $index }}.amount" label="Amount" type="number" step="0.01"/>
                             </div>
 
                             @if(count($items) > 1)
-                            <div class="col-span-1 flex justify-center">
+                            <div class="col-span-1 flex justify-center mt-6 ">
                                 <flux:button size="sm" type="button" variant="primary" color="red" icon="x-mark" wire:click="removeItem({{ $index }})"></flux:button>
                             </div>
                             @endif
