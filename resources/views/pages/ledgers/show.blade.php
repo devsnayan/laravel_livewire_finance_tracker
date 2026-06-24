@@ -117,27 +117,34 @@ new #[Title('Ledger Details')] class extends Component
     @if($ledger->transactions->count() > 0)
     <flux:card>
 
-        <flux:heading size="lg">
-            Transactions
-        </flux:heading>
+        <flux:heading size="lg">Transactions</flux:heading>
 
         <div class="overflow-x-auto mt-4">
             <flux:table>
                 <flux:table.columns>
                     <flux:table.column>Transaction</flux:table.column>
+                    <flux:table.column>Notes</flux:table.column>
                     <flux:table.column>Amount</flux:table.column>
                     <flux:table.column>Action</flux:table.column>
                 </flux:table.columns>
 
                 <flux:table.rows>
                    @foreach($ledger->transactions as $trx)
+                    @php
+                        $transactionColor = $trx->trx_type == 'credit' ? 'green' : 'red';
+                    @endphp
                     <flux:table.row>
                         <flux:table.cell>
-                            <flux:badge size="sm" class="font-bold">{{$trx->trx_no}}</flux:badge>
+                            <flux:badge size="sm" class="font-bold">{{ $trx->trx_no }}</flux:badge>
                             <flux:text size="sm">{{ $trx->created_at ? $trx->created_at->format('M j, Y') : 'N/A' }}</flux:text>
                         </flux:table.cell>
+
+                        <flux:table.cell>
+                            <flux:text size="xs">{{ $trx->notes ?? '' }}</flux:text>
+                        </flux:table.cell>
+
                         <flux:table.cell variant="strong">
-                            <flux:badge>{{$trx->items->sum('amount')}} /-</flux:badge>
+                            <flux:badge color="{{ $trx->trx_type->value === 'credit' ? 'green' : 'red' }}">{{$trx->items->sum('amount')}} /-</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
@@ -197,7 +204,7 @@ new #[Title('Ledger Details')] class extends Component
         <div>
             <flux:table>
                 <flux:table.columns>
-                    <flux:table.column>Category</flux:table.column>
+                    {{-- <flux:table.column>Category</flux:table.column> --}}
                     <flux:table.column>Name</flux:table.column>
                     <flux:table.column>Amount</flux:table.column>
                 </flux:table.columns>
@@ -206,7 +213,7 @@ new #[Title('Ledger Details')] class extends Component
                     @if($selectedTransaction && $selectedTransaction->items->isNotEmpty())
                         @foreach($selectedTransaction->items as $item)
                             <flux:table.row>
-                                <flux:table.cell>{{ $item->category?->name ?? 'N/A' }}</flux:table.cell>
+                                {{-- <flux:table.cell>{{ $item->category?->name ?? 'N/A' }}</flux:table.cell> --}}
                                 <flux:table.cell>{{ $item->name ?? $item->description ?? 'Item' }}</flux:table.cell>
                                 <flux:table.cell>{{ number_format($item->amount, 2) }}/-</flux:table.cell>
                             </flux:table.row>
