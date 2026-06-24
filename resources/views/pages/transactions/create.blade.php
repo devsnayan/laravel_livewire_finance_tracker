@@ -219,7 +219,7 @@ new #[Title('Create Transaction')] class extends Component
 
                         <div class="grid grid-cols-1 md:grid-cols-10 gap-2">
 
-                            <div class="col-span-1 md:col-span-3 lg:col-span-3 ps-3">
+                            <div class="col-span-1 md:col-span-3 lg:col-span-3 px-2">
                                 <flux:select size="sm" wire:model="items.{{ $index }}.category_id" label="Category">
                                     <option value="">Select Category</option>
 
@@ -230,11 +230,11 @@ new #[Title('Create Transaction')] class extends Component
                                 </flux:select>
                             </div>
 
-                            <div class="col-span-1 md:col-span-4 lg:col-span-4 ps-3">
+                            <div class="col-span-1 md:col-span-4 lg:col-span-4 px-2">
                                 <flux:input size="sm" wire:model="items.{{ $index }}.name" label="Name"/>
                             </div>
 
-                            <div class="col-span-1 md:col-span-2 lg:col-span-2 ps-3">
+                            <div class="col-span-1 md:col-span-2 lg:col-span-2 px-2">
                                 <flux:input size="sm" wire:model.live="items.{{ $index }}.amount" label="Amount" type="number" step="0.01"/>
                             </div>
 
