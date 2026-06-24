@@ -55,7 +55,7 @@
                         Activities
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="cog" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
+                    <flux:sidebar.item icon="cog" :href="route('appearance.edit')" :current="request()->routeIs('appearance.edit')" wire:navigate>
                         Settings
                     </flux:sidebar.item>
 

@@ -124,29 +124,34 @@ new #[Title('Ledgers')] class extends Component
                     <flux:text class="m-0">{{ $ledger->ledgerType->name_bn ?? '' }}</flux:text>
                 </div>
                 <div class="items-center justify-center">
-                    <flux:text size="xs" class="m-0"> <span class="font-bold">Opened:</span> {{ $ledger->opened_at ? $ledger->opened_at->format('M j, Y') : 'N/A' }}</flux:text>
+                    <flux:text size="xs" class="m-0"> <span class="font-bold">Last Opened:</span> {{ $ledger->opened_at ? $ledger->opened_at->format('M j, Y') : 'N/A' }}</flux:text>
+                    <flux:text size="xs" class="m-0"> <span class="font-bold">Created:</span> {{ $ledger->created_at ? $ledger->created_at->format('M j, Y') : 'N/A' }}</flux:text>
+                    <flux:text size="xs" class="m-0"> <span class="font-bold">Transactions:</span> {{$ledger->transactions->count() ?? '0'}}</flux:text>
                 </div>
 
                 <div class="flex gap-2 mt-4 items-center justify-center">
-                    <flux:button size="xs" variant="primary" color="emerald" icon="eye" :href="route('ledgers.show', $ledger)" wire:navigate></flux:button>
-                    <flux:button size="xs" variant="primary" color="yellow" icon="pencil" :href="route('ledgers.edit', $ledger)" wire:navigate></flux:button>
-                    <flux:button size="xs" variant="primary" color="rose" icon="trash"  wire:click="confirmDelete({{ $ledger->id }})"></flux:button>
+                    <flux:button size="sm" variant="primary" color="" icon="eye" :href="route('ledgers.show', $ledger)" wire:navigate></flux:button>
+                    {{-- <flux:button size="sm" variant="primary" color="yellow" icon="pencil" :href="route('ledgers.edit', $ledger)" wire:navigate></flux:button> --}}
                     <flux:button
-                        size="xs"
-                        icon="heart"
-                        wire:click="updateStar({{ $ledger->id }})"
-                        variant="primary"
-                        color="{{ $ledger->is_star ? 'orange' : '' }}"
-                        class=""
+                    size="sm"
+                    icon="heart"
+                    wire:click="updateStar({{ $ledger->id }})"
+                    variant="primary"
+                    color="{{ $ledger->is_star ? 'pink' : '' }}"
+                    class=""
                     ></flux:button>
                     
-                    <flux:field variant="inline" >
-                        <flux:switch
-                                variant="primary" color="rose"
-                                :checked="$ledger->is_active"
-                                wire:click="updateIsActive({{ $ledger->id }})"
-                            />
-                    </flux:field>
+                    <flux:button
+                    size="sm"
+                    icon="check-badge"
+                    wire:click="updateIsActive({{ $ledger->id }})"
+                    variant="primary"
+                    color="{{ $ledger->is_active ? 'green' : '' }}"
+                    class=""
+                    ></flux:button>
+                    
+                    <flux:button size="sm" variant="danger"  icon="trash"  wire:click="confirmDelete({{ $ledger->id }})"></flux:button>
+
                 </div>
             </flux:card>
         @endforeach
