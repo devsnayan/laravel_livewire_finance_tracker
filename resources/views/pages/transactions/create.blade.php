@@ -211,7 +211,7 @@ new #[Title('Create Transaction')] class extends Component
 
             </div>
 
-            <div class="space-y-4 mt-4">
+            <div class="space-y-4 border-t-1 mt-4">
 
                 @foreach($items as $index => $item)
 
