@@ -230,7 +230,7 @@ new #[Title('Create Transaction')] class extends Component
                                 </flux:select>
                             </div>
 
-                            <div class="col-span-2 md:col-span-4 lg:col-span-4">
+                            <div class="col-span-1 md:col-span-4 lg:col-span-4">
                                 <flux:input size="sm" wire:model="items.{{ $index }}.name" placeholder="Name"/>
                             </div>
 
