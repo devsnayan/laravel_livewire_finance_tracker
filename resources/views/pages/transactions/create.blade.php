@@ -239,7 +239,7 @@ new #[Title('Create Transaction')] class extends Component
                             </div>
 
                             @if(count($items) > 1)
-                            <div class="col-span-1 flex justify-end">
+                            <div class="col-span-1 flex justify-center">
                                 <flux:button size="sm" type="button" variant="primary" color="red" icon="x-mark" wire:click="removeItem({{ $index }})"></flux:button>
                             </div>
                             @endif
@@ -249,14 +249,14 @@ new #[Title('Create Transaction')] class extends Component
                     </div>
                 @endforeach
 
-                <div class="grid grid-cols-1 md:grid-cols-10 lg:grid-cols-10 gap-4 py-3">
+                <div class="grid grid-cols-10 md:grid-cols-10 lg:grid-cols-10 gap-4 py-3">
                     <div class="col-span-6 md:col-span-7 lg:col-span-7 flex justify-center">
                         <flux:text size="lg" class="font-bold" color="green">Total Amount</flux:text>
                     </div>
                     <div class="col-span-4 md:col-span-2 lg:col-span-2 flex justify-center">
                         <flux:text size="lg" class="font-bold" color="green">{{ number_format($this->total, 2) }} /-</flux:text>
                     </div>
-                    <div class="col-span-1 flex justify-end">
+                    <div class="col-span-1 flex justify-center">
                         <flux:button type="button" icon="plus" size="sm" variant="primary" color="green" wire:click="addItem"></flux:button>
                     </div>
                     
