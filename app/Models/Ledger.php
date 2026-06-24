@@ -45,7 +45,7 @@ class Ledger extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class)->latest();
     }
 
     public function totalCredit(): float

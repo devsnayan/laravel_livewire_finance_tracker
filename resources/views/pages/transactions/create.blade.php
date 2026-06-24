@@ -143,28 +143,22 @@ new #[Title('Create Transaction')] class extends Component
 
     public function generateTransactionNumber(Transaction $transaction): string
     {
-        $ledgerPart = str_pad(
-            (string) $transaction->ledger_id,
+
+        $currentTrx = str_pad(
+            (string) $transaction->id,
+            5,
+            '0',
+            STR_PAD_LEFT
+        );
+
+        $userid = str_pad(
+            (string) Auth::user()->id,
             3,
             '0',
             STR_PAD_LEFT
         );
 
-        $transactionPart = str_pad(
-            (string) $transaction->id,
-            4,
-            '0',
-            STR_PAD_LEFT
-        );
-
-        $serialPart = str_pad(
-            (string) $transaction->ledger->transactions()->count(),
-            2,
-            '0',
-            STR_PAD_LEFT
-        );
-
-        return "{$ledgerPart}{$transactionPart}{$serialPart}";
+        return "TRX-{$currentTrx}{$userid}";
     }
 };
 
@@ -215,9 +209,9 @@ new #[Title('Create Transaction')] class extends Component
 
                 @foreach($items as $index => $item)
 
-                    <div class="border mb-3 py-3">
+                    <div class="relative border rounded-sm mb-4 py-3">
 
-                        <div class="grid grid-cols-1 md:grid-cols-10 gap-2">
+                        <div class="grid grid-cols-1 md:grid-cols-10 gap-2 mt-4">
 
                             <div class="col-span-1 md:col-span-3 lg:col-span-3 px-2">
                                 <flux:select size="sm" wire:model="items.{{ $index }}.category_id" label="Category">
@@ -230,7 +224,7 @@ new #[Title('Create Transaction')] class extends Component
                                 </flux:select>
                             </div>
 
-                            <div class="col-span-1 md:col-span-4 lg:col-span-4 px-2">
+                            <div class="col-span-1 md:col-span-5 lg:col-span-5 px-2">
                                 <flux:input size="sm" wire:model="items.{{ $index }}.name" label="Name"/>
                             </div>
 
@@ -238,11 +232,21 @@ new #[Title('Create Transaction')] class extends Component
                                 <flux:input size="sm" wire:model.live="items.{{ $index }}.amount" label="Amount" type="number" step="0.01"/>
                             </div>
 
-                            @if(count($items) > 1)
+                            {{-- @if(count($items) > 1)
                             <div class="col-span-1 flex justify-center lg:mt-6 md:mt-6 sm:mt-2  ">
                                 <flux:button size="sm" type="button" variant="primary" color="red" icon="x-mark" wire:click="removeItem({{ $index }})"></flux:button>
                             </div>
+                            @endif --}}
+
+                            @if(count($items) > 1)
+                            <div class="absolute top-0 right-0">
+                                <flux:button size="sm" type="button" variant="ghost" color="red" icon="trash" wire:click="removeItem({{ $index }})"></flux:button>
+                            </div>
                             @endif
+
+                            
+
+
 
                         </div>
 
