@@ -8,8 +8,9 @@ use App\Models\ItemCategory;
 use App\Models\PaymentMethod;
 use Livewire\Attributes\Title;
 
-new #[Title('Create Transaction')] class extends Component
+new #[Title('Edit Transaction')] class extends Component
 {
+    public Transaction $transaction;
     public Ledger $ledger;
 
     public string $trx_type = '';
@@ -21,30 +22,32 @@ new #[Title('Create Transaction')] class extends Component
 
     public array $items = [];
 
-    public function mount(Ledger $ledger): void
+    public function mount(Transaction $transaction): void
     {
-        // abort_if(
-        //     $ledger->user_id !== auth()->id(),
-        //     403
-        // );
+        $this->transaction = $transaction;
+        $this->ledger = $transaction->ledger;
 
-        $this->ledger = $ledger;
+        $this->trx_type = $transaction->trx_type->value ?? $transaction->trx_type;
+        $this->date = $transaction->date->format('Y-m-d');
+        $this->payment_method_id = $transaction->payment_method_id;
+        $this->trx_no = $transaction->trx_no;
+        $this->notes = $transaction->notes;
 
-        $this->date = now()->format('Y-m-d');
-
-        $this->items = [
-            [
-                'category_id' => '',
-                'name' => '',
-                'notes' => '',
-                'amount' => '',
-            ]
-        ];
+        $this->items = $transaction->items
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'category_id' => $item->category_id,
+                'name' => $item->name,
+                'notes' => $item->notes,
+                'amount' => $item->amount,
+            ])
+            ->toArray();
     }
 
     public function addItem(): void
     {
         $this->items[] = [
+            'id' => null,
             'category_id' => '',
             'name' => '',
             'notes' => '',
@@ -54,6 +57,14 @@ new #[Title('Create Transaction')] class extends Component
 
     public function removeItem(int $index): void
     {
+        if (!empty($this->items[$index]['id'])) {
+
+            $this->transaction
+                ->items()
+                ->where('id', $this->items[$index]['id'])
+                ->delete();
+        }
+
         unset($this->items[$index]);
 
         $this->items = array_values($this->items);
@@ -65,7 +76,6 @@ new #[Title('Create Transaction')] class extends Component
             'trx_type' => ['required'],
             'date' => ['required', 'date'],
             'payment_method_id' => ['nullable', 'exists:payment_methods,id'],
-            'trx_no' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
 
             'items' => ['required', 'array', 'min:1'],
@@ -75,36 +85,62 @@ new #[Title('Create Transaction')] class extends Component
             'items.*.amount' => ['required', 'numeric', 'min:0.01'],
         ]);
 
-        $amount = collect($this->items)->sum(fn ($item) => (float) $item['amount']);
+        $amount = collect($this->items)
+            ->sum(fn ($item) => (float) $item['amount']);
 
-        $transaction = Transaction::create([
-            'user_id' => auth()->id(),
-            'ledger_id' => $this->ledger->id,
+        $this->transaction->update([
             'trx_type' => $validated['trx_type'],
             'payment_method_id' => $validated['payment_method_id'],
             'date' => $validated['date'],
-            'trx_no' => $validated['trx_no'],
             'notes' => $validated['notes'],
             'amount' => $amount,
         ]);
 
+        $savedIds = [];
+
         foreach ($this->items as $item) {
 
-            $transaction->items()->create([
-                'category_id' => $item['category_id'],
-                'name' => $item['name'],
-                'notes' => $item['notes'],
-                'amount' => $item['amount'],
-            ]);
+            if (!empty($item['id'])) {
+
+                $trxItem = $this->transaction
+                    ->items()
+                    ->find($item['id']);
+
+                if ($trxItem) {
+
+                    $trxItem->update([
+                        'category_id' => $item['category_id'],
+                        'name' => $item['name'],
+                        'notes' => $item['notes'],
+                        'amount' => $item['amount'],
+                    ]);
+
+                    $savedIds[] = $trxItem->id;
+                }
+
+            } else {
+
+                $newItem = $this->transaction
+                    ->items()
+                    ->create([
+                        'category_id' => $item['category_id'],
+                        'name' => $item['name'],
+                        'notes' => $item['notes'],
+                        'amount' => $item['amount'],
+                    ]);
+
+                $savedIds[] = $newItem->id;
+            }
         }
 
-        $transaction->update([
-            'trx_no' => $this->generateTransactionNumber($transaction),
-        ]);
+        $this->transaction
+            ->items()
+            ->whereNotIn('id', $savedIds)
+            ->delete();
 
         Flux::toast(
             variant: 'success',
-            text: __('Transaction created successfully.')
+            text: __('Transaction updated successfully.')
         );
 
         $this->redirect(
@@ -133,26 +169,6 @@ new #[Title('Create Transaction')] class extends Component
     {
         return collect($this->items)
             ->sum(fn ($item) => (float) ($item['amount'] ?? 0));
-    }
-
-    public function generateTransactionNumber(Transaction $transaction): string
-    {
-
-        $currentTrx = str_pad(
-            (string) $transaction->id,
-            5,
-            '0',
-            STR_PAD_LEFT
-        );
-
-        $userid = str_pad(
-            (string) Auth::user()->id,
-            3,
-            '0',
-            STR_PAD_LEFT
-        );
-
-        return "TRX-{$currentTrx}{$userid}";
     }
 };
 

@@ -34,10 +34,10 @@
                         Ledgers
                     </flux:sidebar.item>
 
-                    <flux:sidebar.group icon="link" expandable expanded="false" heading="Link Management" class="grid" >
+                    {{-- <flux:sidebar.group icon="link" expandable expanded="false" heading="Link Management" class="grid" >
                         <flux:sidebar.item icon="book-open" :href="route('links.index')" :current="request()->routeIs('links.index')" wire:navigate>Links</flux:sidebar.item>
                         <flux:sidebar.item icon="puzzle-piece" :href="route('link_categories.index')" :current="request()->routeIs('link_categories.index')" wire:navigate>Categories</flux:sidebar.item>
-                    </flux:sidebar.group>
+                    </flux:sidebar.group> --}}
 
                     <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>
                         Users

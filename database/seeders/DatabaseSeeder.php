@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             LedgerSeeder::class,
             ItemCategorySeeder::class,
             PaymentMethodSeeder::class,
-            TransactionSeeder::class,
-            TransactionItemSeeder::class,
+            // TransactionSeeder::class,
+            // TransactionItemSeeder::class,
             LinkCategorySeeder::class,
             LinkSeeder::class,
         ]);

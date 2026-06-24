@@ -66,9 +66,9 @@ new #[Title('Ledger Details')] class extends Component
         
         <div>
             <flux:button.group>
-                <flux:button icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
-                <flux:button icon="pencil-square" size="sm" color="yellow" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
-                <flux:button icon="plus" size="sm" color="green" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button>
+                <flux:button variant="primary"  icon="arrow-left" size="sm"  :href="route('ledgers.index')" wire:navigate>Back</flux:button>
+                <flux:button variant="primary"  icon="pencil-square" size="sm" color="yellow" :href="route('ledgers.index')" wire:navigate>Edit</flux:button>
+                <flux:button variant="primary"  icon="plus" size="sm" color="green" :href="route('transactions.create', $ledger->id)" wire:navigate>Transaction</flux:button>
             </flux:button.group>
             <flux:text class="font-bold text-2xl" color="sky">{{ $ledger->name }}</flux:text>
             <flux:text>{{ $ledger->title }}</flux:text>
@@ -117,6 +117,7 @@ new #[Title('Ledger Details')] class extends Component
 
     </div>
 
+    @if($ledger->transactions->count() > 0)
     <flux:card>
 
         <flux:heading size="lg">
@@ -137,12 +138,9 @@ new #[Title('Ledger Details')] class extends Component
                         <flux:table.cell>
                             <flux:badge size="sm" class="font-bold">{{$trx->trx_no}}</flux:badge>
                             <flux:text size="sm">{{ $trx->created_at ? $trx->created_at->format('M j, Y') : 'N/A' }}</flux:text>
-                            {{-- <flux:badge>{{$trx->items->count()}}</flux:badge> --}}
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <flux:badge>{{$trx->items->sum('amount')}} /-</flux:badge>
-                            {{-- <flux:badge size="sm">{{$trx->trx_type}}</flux:badge> --}}
-                            {{-- <flux:badge size="sm">{{$trx->items->count()}}</flux:badge> --}}
                         </flux:table.cell>
                         <flux:table.cell variant="strong">
                             <div>
@@ -155,7 +153,6 @@ new #[Title('Ledger Details')] class extends Component
 
                 </flux:table.rows>
             </flux:table>
-
         </div>
 
     </flux:card>
@@ -179,7 +176,7 @@ new #[Title('Ledger Details')] class extends Component
 
         <div class="">
             <flux:heading size="lg" class="mb-1 font-bold">{{$selectedTransaction->trx_no ?? ''}}</flux:heading>
-            <flux:text size="sm" class="font-bold"><span class="font-bold">Date: </span> {{ $trx->selectedTransaction ? $trx->date->format('M j, Y') : 'N/A' }}</flux:text>
+            <flux:text size="sm" class="font-bold"><span class="font-bold">Date: </span> {{ $selectedTransaction?->date ? $selectedTransaction->date->format('M j, Y') : 'N/A' }}</flux:text>
             <div class="flex">
                 <flux:text size="xs" class="font-bold me-2">{{ $selectedTransaction->trx_type ?? '' }}</flux:text>
                 <flux:text size="xs" color="green" class="font-bold">{{ $selectedTransaction->paymentMethod->name ?? '' }}</flux:text>
@@ -228,11 +225,17 @@ new #[Title('Ledger Details')] class extends Component
 
         <div class="flex mt-4">
             <flux:button size="sm" icon="arrow-left" class="me-2" wire:click="$set('showItemsTransactionModal', false)" variant="primary">Back</flux:button>
-            {{-- <flux:button size="sm" icon="trash" class="me-2" variant="danger" wire:click="confirmDeleteTransaction({{ $trx->id }})"></flux:button> --}}
-            <flux:button size="sm" icon="pencil-square" type="submit" variant="primary" color="yellow">Edit</flux:button>
+            @if($selectedTransaction)
+                <flux:button size="sm" icon="pencil-square" type="submit" variant="primary" color="yellow" :href="route('transactions.edit', $selectedTransaction->id)" wire:navigate>Edit</flux:button>
+            @endif
         </div>
 
     </flux:modal>
+
+    
+    @endif
+
+    
 
 
 </section>

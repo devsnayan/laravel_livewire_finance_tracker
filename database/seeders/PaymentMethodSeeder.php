@@ -18,20 +18,20 @@ class PaymentMethodSeeder extends Seeder
                 'notes' => 'Cash transactions',
             ],
             [
-                'name' => 'Credit Card',
-                'notes' => 'Credit card transactions',
-            ],
-            [
-                'name' => 'Bank Transfer',
+                'name' => 'Bkash',
                 'notes' => 'Bank transfer transactions',
             ],
             [
-                'name' => 'Mobile Payment',
-                'notes' => 'Mobile payment transactions',
+                'name' => 'Bank',
+                'notes' => 'Bkash payment transactions',
             ],
             [
-                'name' => 'Cheque',
-                'notes' => 'Cheque transactions',
+                'name' => 'Nogod',
+                'notes' => 'Nogod payment transactions',
+            ],
+            [
+                'name' => 'Other',
+                'notes' => 'Other Method ',
             ],
         ];
 
