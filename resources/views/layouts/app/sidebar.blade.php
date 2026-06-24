@@ -39,10 +39,11 @@
                         <flux:sidebar.item icon="puzzle-piece" :href="route('link_categories.index')" :current="request()->routeIs('link_categories.index')" wire:navigate>Categories</flux:sidebar.item>
                     </flux:sidebar.group> --}}
 
+                    @role('super_admin')
                     <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>
                         Users
                     </flux:sidebar.item>
-
+                    
                     <flux:sidebar.item icon="shield-check" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>
                         Roles
                     </flux:sidebar.item>
@@ -54,6 +55,9 @@
                     <flux:sidebar.item icon="presentation-chart-line" :href="route('dashboard')" :current="request()->routeIs('settings.profile')" wire:navigate>
                         Activities
                     </flux:sidebar.item>
+
+                    @endrole
+
 
                     <flux:sidebar.item icon="cog" :href="route('appearance.edit')" :current="request()->routeIs('appearance.edit')" wire:navigate>
                         Settings

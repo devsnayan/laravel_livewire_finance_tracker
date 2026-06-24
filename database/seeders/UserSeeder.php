@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         $user1 = User::create([
             'name' => 'Mohammad Nayan',
-            'email' => 'nayan@gmail.com',
+            'email' => 'devs.nayan@gmail.com',
             'phone' => '01690091590',
             'title' => 'Software Developer',
             'avatar' => null,
@@ -37,8 +37,8 @@ class UserSeeder extends Seeder
         $user1->assignRole('user');
 
         $user2 = User::create([
-            'name' => 'Yeasin Arafat',
-            'email' => 'arafat@gmail.com',
+            'name' => 'User Name',
+            'email' => 'user@gmail.com',
             'phone' => '01690091590',
             'title' => 'Marketing Manager',
             'avatar' => null,

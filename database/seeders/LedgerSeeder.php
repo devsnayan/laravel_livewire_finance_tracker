@@ -70,7 +70,7 @@ class LedgerSeeder extends Seeder
         foreach ($ledgers as $ledger) {
             Ledger::updateOrCreate(
                 [
-                    'user_id' => 1,
+                    'user_id' => 3,
                     'name' => $ledger['name'],
                 ],
                 [

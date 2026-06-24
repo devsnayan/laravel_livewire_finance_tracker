@@ -110,11 +110,11 @@ class TransactionSeeder extends Seeder
         foreach ($transactions as $transaction) {
             Transaction::updateOrCreate(
                 [
-                    'user_id' => 1,
+                    'user_id' => 3,
                     'trx_no' => $transaction['trx_no'],
                 ],
                 [
-                    'user_id' => 1,
+                    'user_id' => 3,
                     'ledger_id' => $transaction['ledger_id'],
                     'date' => $transaction['date'],
                     'trx_type' => $transaction['trx_type'],

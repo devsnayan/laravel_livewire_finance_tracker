@@ -69,7 +69,7 @@ class LinkCategorySeeder extends Seeder
 
             $parent = LinkCategory::updateOrCreate(
                 [
-                    'user_id' => 1,
+                    'user_id' => 3,
                     'name' => $cat['name'],
                     'parent_id' => null,
                 ],
@@ -84,7 +84,7 @@ class LinkCategorySeeder extends Seeder
                 foreach ($cat['children'] as $child) {
                     LinkCategory::updateOrCreate(
                         [
-                            'user_id' => 1,
+                            'user_id' => 3,
                             'name' => $child['name'],
                             'parent_id' => $parent->id,
                         ],

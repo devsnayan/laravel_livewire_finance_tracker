@@ -22,6 +22,22 @@ class PermissionSeeder extends Seeder
                         // Dashboard
                         [ 'name' => 'dashboard', 'guard_name' => 'web', 'is_active' => 1 ],
 
+                        // Ledgers
+                        [ 'name' => 'ledgers_index', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_create', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_show', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_edit', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_destroy', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_active', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_favourite', 'guard_name' => 'web', 'is_active' => 1 ],
+
+                        // Ledgers Category
+                        [ 'name' => 'ledgers_category_index', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_category_create', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_category_show', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_category_edit', 'guard_name' => 'web', 'is_active' => 1 ],
+                        [ 'name' => 'ledgers_category_destroy', 'guard_name' => 'web', 'is_active' => 1 ],
+
                         // Transactions
                         [ 'name' => 'transactions_index', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'transactions_create', 'guard_name' => 'web', 'is_active' => 1 ],
@@ -29,7 +45,7 @@ class PermissionSeeder extends Seeder
                         [ 'name' => 'transactions_edit', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'transactions_destroy', 'guard_name' => 'web', 'is_active' => 1 ],
 
-                        // Admins
+                        // Users
                         [ 'name' => 'users_index', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'users_create', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'users_show', 'guard_name' => 'web', 'is_active' => 1 ],
@@ -57,7 +73,6 @@ class PermissionSeeder extends Seeder
                         [ 'name' => 'activities_index', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'activities_show', 'guard_name' => 'web', 'is_active' => 1 ],
                         [ 'name' => 'activities_destroy', 'guard_name' => 'web', 'is_active' => 1 ],
-                        [ 'name' => 'activities_export', 'guard_name' => 'web', 'is_active' => 1 ],
 
                     ];
 

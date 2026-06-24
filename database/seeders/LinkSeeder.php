@@ -54,7 +54,7 @@ class LinkSeeder extends Seeder
         foreach ($links as $link) {
             Link::updateOrCreate(
                 [
-                    'user_id' => 1,
+                    'user_id' => 3,
                     'title' => $link['title'],
                 ],
                 [
