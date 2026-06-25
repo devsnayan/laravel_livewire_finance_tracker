@@ -5,9 +5,11 @@
     {{ filled($title ?? null) ? $title.' - Amar Khata' : 'Amar Khata' }}
 </title>
 
+<link rel="shortcut icon" href="{{asset('/assets/images/logo.png')}}" type="image/png">
 <link rel="icon" href="{{asset('/assets/images/logo.png')}}" sizes="any">
 <link rel="icon" href="{{asset('/assets/images/logo.png')}}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{asset('/assets/images/logo.png')}}">
+
 
 @fonts
 

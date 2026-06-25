@@ -15,7 +15,7 @@
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
                 <flux:avatar src="{{asset('/assets/images/logo.png')}}"></flux:avatar>
-                <flux:text size="xl" color="lime" class="font-bold w-full text-start">
+                <flux:text size="xl" class="font-bold w-full text-start dark:text-[#f5f5f5] text-[#000]">
                     আমার খাতা
                 </flux:text>
                 <flux:sidebar.collapse class="lg:hidden" />
